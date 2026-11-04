@@ -76,7 +76,7 @@ Local verification on 2026-11-04: debug APK assembled; ktlint passed; 37 JVM/res
 - HTTP on a LAN exposes links and credentials to malicious observers; it must never be described as encrypted. New-device pairing must require TV confirmation. No receiver endpoint may fetch arbitrary URLs or proxy LAN/localhost resources.
 - No claim of universal TV or website compatibility is made. Android TV needs an installed receiver and compatible URL handler; login, Widevine, cookies, and remote input can still limit destinations.
 
-No V1 acceptance box should be checked based solely on this increment.
+The roadmap marks only criteria supported by the combined automated and physical evidence. Full V1 acceptance remains open.
 
 ## Runtime UI regression fixes
 
