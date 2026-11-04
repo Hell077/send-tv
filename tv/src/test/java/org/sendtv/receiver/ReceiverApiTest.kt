@@ -136,4 +136,13 @@ class ReceiverApiTest {
         assertEquals("failed", state["status"].asString)
         assertEquals("NO_BROWSER", state["errorCode"].asString)
     }
+
+    @Test fun stoppingSessionRejectsRequestsAndCancelsQueuedDispatch() {
+        val token = authorize()
+        request("POST", "/v1/open", """{"url":"https://example.com","requestId":"12345678"}""", token)
+        api.close()
+        queued.removeAt(0).invoke()
+        assertEquals(0, launches)
+        assertEquals(503, request("GET", "/v1/info").status)
+    }
 }

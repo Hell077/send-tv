@@ -52,10 +52,17 @@ class ReceiverApi(
     private val operations = linkedMapOf<String, Operation>()
     private val session = UUID.randomUUID().toString()
     private var sequence = 0L
+    private var active = true
+
+    @Synchronized
+    fun close() {
+        active = false
+    }
 
     @Synchronized
     fun handle(request: HttpRequest): HttpResponse =
         try {
+            if (!active) throw ProtocolFailure(503, "RECEIVER_STOPPED")
             if (request.headers["host"] != authority) throw ProtocolFailure(403, "INVALID_HOST")
             val origin = request.headers["origin"]
             if ((origin != null && origin != "http://$authority") ||
@@ -138,6 +145,11 @@ class ReceiverApi(
             operations[operation.id] = operation
             schedule {
                 synchronized(this) {
+                    if (!active) {
+                        operation.status = "failed"
+                        operation.errorCode = "RECEIVER_STOPPED"
+                        return@synchronized
+                    }
                     try {
                         pairing.authenticate(token) // re-check revocation immediately before side effect
                         operation.status = "launching"

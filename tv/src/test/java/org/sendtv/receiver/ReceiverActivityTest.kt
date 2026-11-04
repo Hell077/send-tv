@@ -30,12 +30,12 @@ class ReceiverActivityTest {
     }
 
     @Test
-    fun homeReportsIncompleteStateAndFocusesSettings() {
+    fun homeStartsStoppedAndFocusesSettings() {
         Robolectric.buildActivity(ReceiverActivity::class.java).setup().use { controller ->
             val activity = controller.get()
             assertEquals("Living Room TV", activity.findViewById<TextView>(R.id.receiver_name).text)
             assertTrue(activity.findViewById<Button>(R.id.settings).hasFocus())
-            assertEquals("Network listener disabled", activity.getString(R.string.network_status))
+            assertEquals("Receiver stopped", activity.findViewById<TextView>(R.id.network_state).text)
         }
     }
 
@@ -71,10 +71,10 @@ class ReceiverActivityTest {
     }
 
     @Test
-    fun shellHasNoNetworkPermissionAndCannotHandleRemoteCommands() {
+    fun receiverRequestsOnlyNetworkPermissionsAndCannotHandleRemoteCommands() {
         val app = RuntimeEnvironment.getApplication()
         val info = app.packageManager.getPackageInfo(app.packageName, android.content.pm.PackageManager.GET_PERMISSIONS)
-        assertTrue(info.requestedPermissions.isNullOrEmpty())
+        assertEquals(setOf("android.permission.INTERNET", "android.permission.ACCESS_NETWORK_STATE"), info.requestedPermissions?.toSet())
         val intent =
             android.content
                 .Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://example.com"))

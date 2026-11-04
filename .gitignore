@@ -12,3 +12,7 @@ local.properties
 *.aab
 node_modules/
 __pycache__/
+test-results/
+playwright-report/
+website/.astro/
+website/public/protocol/

@@ -1,14 +1,25 @@
 # V1 development
 
-Active roadmap: [MVP V1](../roadmap/mvp/version-1.md), step 1 (Android TV shell and settings). This increment advances that step without satisfying the end-to-end V1 acceptance criteria.
+Active roadmap: [MVP V1](../roadmap/mvp/version-1.md). The native receiver, security core, bounded HTTP adapter, and bundled sender are implemented for development verification. End-to-end physical-device acceptance remains open.
 
 ## Available behavior
 
 - Native Kotlin Android Views app with a Leanback launcher and no touchscreen requirement.
-- Home reports that pairing, URL handoff, and networking are unavailable.
+- Home starts stopped; the owner explicitly starts the receiver after reading the LAN warning. A rotating 60-second challenge QR is displayed only while a private IPv4 Wi-Fi/Ethernet listener is available.
 - Settings lets the TV owner rename the receiver. Names must contain 1–48 UTF-16 code units, without surrounding whitespace, control characters, or Unicode format characters. Invalid input shows an error without changing the saved name.
-- Settings starts focus on Back; focus styling and navigation targets are present. This is a provisional development screen, not the final Pencil design.
-- Private local preferences store only the receiver name. No network permission, remote endpoint, analytics, or tokens exist in this increment. Backup and transfer exclusions are explicit, following [Android backup documentation](https://developer.android.com/identity/data/autobackup).
+- Settings starts focus on Back; pairing approval starts on Deny. Devices can be revoked individually or all at once. The UI follows the validated Pencil reference hierarchy; actual TV rendering remains under verification.
+- Private preferences store receiver identity, name, port, and token hashes. Only INTERNET and ACCESS_NETWORK_STATE permissions are requested. Backup and transfer exclusions follow [Android backup documentation](https://developer.android.com/identity/data/autobackup). No analytics, cloud relay or remote proxy exists.
+- The bundled TypeScript sender supports pairing, verification codes, cancel, open, status polling, malformed URL/missing-browser/revoked/unreachable errors, and retry idempotency. Browser credentials use session storage by default; remembering them in local storage is explicit.
+
+## Lifecycle and platform constraints
+
+The app does not request a foreground service, overlay, background-start exemption, or elevated permissions. The listener lives in the Android process and survives an ordinary activity pause long enough to poll a handoff, but Android may terminate a background process. After process restart the receiver starts stopped; TV owners reopen it and start it again. Persistent trusted-device hashes survive, while pending requests and operations do not.
+
+`ACTION_VIEW` runs only with a visible receiver Activity. If SendTV is backgrounded, the command returns `RETURN_TO_RECEIVER`; the sender asks the owner to return to the receiver before retrying. `launched` means Android accepted the intent, not that the destination loaded. Missing handlers are reported as `NO_BROWSER`. This explicitly respects Android restrictions rather than claiming unrestricted remote control.
+
+Network callbacks select only private IPv4 Wi-Fi/Ethernet addresses. Loss/address/port changes close the listener, cancel queued dispatch on that session, and invalidate challenges and pending token delivery. Stop disables dispatch immediately while the lifecycle worker closes sockets. Trusted-device hashes persist until explicit revocation. IPv6-only LANs are not currently supported.
+
+See [pairing](pairing-v1.md) and [HTTP boundary](http-v1.md) for limits and threat-model details.
 
 The provisional application ID `org.sendtv.receiver` remains a placeholder. Do not publish an application under it until project ownership and naming are finalized.
 
@@ -20,11 +31,17 @@ Requirements: JDK 21, Android SDK platform 36 and build-tools 36.0.0, Node 24, n
 npm ci --ignore-scripts --no-audit --no-fund
 ./gradlew ktlintCheck :tv:testDebugUnitTest :tv:lintDebug :tv:assembleDebug --console=plain
 npm run check:protocol
+npm run typecheck
+npm run lint:web
+npm run format:web
+npm run test:browser
 python3 -m unittest discover -s scripts -p 'test_*.py'
 git diff --check
 ```
 
-Use `./gradlew ktlintFormat` for Kotlin formatting. Debug APK: `tv/build/outputs/apk/debug/tv-debug.apk`. It is signed with a local development key only; there is no release signing or download release. Build outputs, keystores, IDE files, and local SDK paths are ignored.
+Use `./gradlew ktlintFormat` for Kotlin formatting. The Android asset task invokes esbuild to bundle the sender from TypeScript. Run `npx playwright install chromium webkit` once before browser tests. Browser projects run with a fresh test-only receiver process per engine to preserve production rate limits; the actual HTTP/auth core runs, while TV approval and Android launch are local test adapters. This is not a physical Safari or TV browser test. Browser traces/screenshots are disabled during these credential-bearing flows.
+
+Debug APK: `tv/build/outputs/apk/debug/tv-debug.apk`. It is signed with a local development key only; there is no release signing or download release. Build outputs, keystores, IDE files, and local SDK paths are ignored.
 
 To install on a developer-authorized Android TV test device:
 
@@ -39,7 +56,7 @@ Provisional minimum API is 26. JVM resource/activity tests cover API 26 and 34; 
 
 ## CI and hooks
 
-`.github/workflows/verify.yml` runs Kotlin formatting, JVM unit/resource integration tests, Android lint, debug APK build, OpenAPI validation, Python guardrail tests, whitespace checks, and PR commit-subject validation. The workflow has been added but has not run on a remote host: this checkout has no configured Git remote. Website build and browser tests must be added with those implementations; no passing website build is claimed.
+`.github/workflows/verify.yml` runs Kotlin formatting, JVM unit/resource integration tests, Android lint, debug APK build, sender browser flows, OpenAPI validation, strict TypeScript, ESLint/Prettier, Python guardrail tests, whitespace checks, and PR commit-subject validation. Commits are pushed to the feature branch on the configured origin. The first hosted run exposed an obsolete SDK `tools` package in the setup action; the workflow now requests `platform-tools` explicitly. Hosted outcomes must be checked for each subsequent commit.
 
 Enable local hooks explicitly for your checkout:
 
@@ -51,11 +68,11 @@ Hooks check staged whitespace, common credential patterns and files over 2 MiB; 
 
 ## Remaining validation and implementation
 
-Local verification on 2026-11-04: debug APK assembled; ktlint passed; 10 Android JVM/resource tests passed (8 activity tests across API 26/34 plus 2 name-validator tests); 4 Python guardrail tests passed; OpenAPI validation passed without warnings. Android lint completed with 0 errors and 7 warnings: dependency/SDK version notices, heading semantics ignored below API 28, and the provisional vector banner size. No warning was suppressed. These results are local evidence, not a hosted CI result or device compatibility certification.
+Local verification on 2026-11-04: debug APK assembled; ktlint passed; 31 JVM/resource/real-socket tests passed, including native approval focus and intent dispatch; 4 sender browser flows passed in Chromium and 4 in WebKit; strict TypeScript, ESLint and OpenAPI validation passed. Android lint completed with 0 errors and 16 warnings. No warning was suppressed. These results are local evidence, not device compatibility certification.
 
 - Pencil access is available through its configured local MCP server. The original `2.22` schema header caused the TV document to appear empty; the installed editor publishes schema `2.21`. All three headers were migrated without changing node content or geometry, and all six reference frames were inspected with MCP screenshots and layout queries. See [design validation](../design/validation/README.md). This validates editable references; the development shell is still provisional and has not been visually matched to them.
-- No Android TV emulator is configured and no physical device is attached. No installation, TV screenshots, remote input, 1080p/4K rendering, or physical accessibility tests have been performed. The only existing emulator profile is a phone profile.
-- Next implementation steps remain receiver lifecycle/LAN binding, pairing state machine and approval, secure token handling, API transport, URL dispatch, sender, static public site, and the full acceptance matrix. Extend canonical OpenAPI before implementing the pairing endpoints.
+- Android TV emulator setup is in progress; no physical device is attached. Installation, runtime TV screenshots, remote input, 1080p/4K rendering and physical accessibility must be recorded only after actual checks.
+- Remaining work includes the static public site, runtime visual checks, offline/isolated LAN scenarios, physical browser/device tests, and the full acceptance matrix.
 - HTTP on a LAN exposes links and credentials to malicious observers; it must never be described as encrypted. New-device pairing must require TV confirmation. No receiver endpoint may fetch arbitrary URLs or proxy LAN/localhost resources.
 - No claim of universal TV or website compatibility is made. Android TV needs an installed receiver and compatible URL handler; login, Widevine, cookies, and remote input can still limit destinations.
 

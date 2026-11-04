@@ -1,12 +1,12 @@
 # SendTV — implementation blueprint
 
-An offline-first, local-network protocol and product for sending URLs from phones, tablets, browsers, and computers to a television. **V1 implementation has started; URL handoff is not available yet.**
+An offline-first, local-network protocol and product for sending URLs from phones, tablets, browsers, and computers to a television. **V1 is implemented for development verification; it is not a verified public release.**
 
 ## Development status
 
-The first increment adds a native Kotlin Android TV development shell, local receiver-name settings, JVM tests, and build/CI configuration. The shell explicitly reports that its network listener is disabled. It has no network permission, pairing, QR, or URL dispatch yet. V1 acceptance criteria remain unchecked; no V2/V3 work has started.
+The native Kotlin receiver now includes explicit start/stop, LAN binding, expiring QR challenges, TV approval, token-hash persistence and revocation, authenticated HTTP URL handoff and operation status, plus a bundled TypeScript sender. Automated security, socket, Android resource/intent and Chromium/WebKit sender tests are present. Physical TV/browser and full LAN acceptance verification remain open; no V2/V3 work has started.
 
-Build instructions, verification evidence, and remaining work: [V1 development](docs/development-v1.md). The `.pen` references have been [inspected through Pencil MCP](design/validation/README.md); the development shell still needs the final UI implementation and runtime visual checks. Do not publish this shell as a usable SendTV receiver.
+Build instructions, verification evidence, and remaining work: [V1 development](docs/development-v1.md). The `.pen` references have been [inspected through Pencil MCP](design/validation/README.md); the implemented receiver UI still needs runtime visual checks. Do not publish the experimental build as a verified V1 release.
 
 ## Agent entry point
 1. Read `AGENTS.md` and `governance/git.md`.

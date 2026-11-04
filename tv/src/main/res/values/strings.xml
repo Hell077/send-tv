@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">SendTV</string>
+  <string name="receiver_stopped">Receiver stopped</string>
+  <string name="start_instructions">Start the receiver on your trusted home network</string>
+  <string name="ready">Ready to receive</string>
+  <string name="scan_instructions">Scan with your phone to connect. Approve on this TV.</string>
+  <string name="qr_description">Short-lived pairing QR code. Scan with your phone camera.</string>
+  <string name="start_receiver">Start receiver</string>
+  <string name="stop_receiver">Stop receiver</string>
+  <string name="devices">Devices</string>
+  <string name="no_devices">No trusted devices yet</string>
+  <string name="revoke_all">Revoke all devices</string>
+  <string name="revoke_device">Revoke %1$s</string>
+  <string name="approval_title">Allow this device?</string>
+  <string name="approval_tip">Compare the code on your phone. Allow this device to send links?</string>
+  <string name="verification_code">Verification code: %1$s</string>
+  <string name="approval_expires">Request expires in %1$d seconds</string>
+  <string name="deny">Deny</string>
+  <string name="allow">Allow</string>
+  <string name="port_label">Receiver port (1024–65535)</string>
+  <string name="invalid_port">Use a port from 1024 to 65535</string>
+  <string name="storage_failure">Could not save access settings. Please retry.</string>
   <string name="default_receiver_name">Living Room TV</string>
   <string name="development_status">Receiver setup in progress</string>
   <string name="development_explanation">Development build. Pairing and URL handoff are not available yet.</string>

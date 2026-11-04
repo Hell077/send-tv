@@ -17,11 +17,23 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
       - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Install compile SDK
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Format, unit and resource integration tests, lint, APK
         run: ./gradlew ktlintCheck :tv:testDebugUnitTest :tv:lintDebug :tv:assembleDebug --console=plain
+      - name: Install browser test engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Sender browser flows against actual receiver HTTP
+        run: npm run test:browser
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -37,6 +49,10 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run check:protocol
+      - run: npm run typecheck
+      - run: npm run lint:web
+      - run: npm run format:web
+      - run: npm run build:sender
       - run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - run: git diff --check
   commits:
