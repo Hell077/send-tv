@@ -36,6 +36,10 @@ jobs:
         run: npx playwright install --with-deps chromium webkit
       - name: Sender browser flows against actual receiver HTTP
         run: npm run test:browser
+      - name: Static site browser and accessibility checks
+        run: |
+          npm run build:site
+          npm run test:site:browser
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -57,6 +61,10 @@ jobs:
       - run: npm run lint:web
       - run: npm run format:web
       - run: npm run build:sender
+      - run: npm run format:site
+      - run: npm run check:site
+      - run: npm run build:site
+      - run: npm run test:site
       - run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - run: git diff --check
   commits:

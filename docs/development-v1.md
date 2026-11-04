@@ -52,7 +52,7 @@ adb shell am start -n org.sendtv.receiver/.ReceiverActivity
 
 ADB is a development installation tool here, not a product dependency or sender transport. Normal V1 operation must not require it. Do not expose ADB on untrusted networks.
 
-Provisional minimum API is 26. JVM resource/activity tests cover API 26 and 34; this does **not** establish an installable or supported Android TV floor. Select the supported floor only after emulator and physical TV tests.
+The initial supported floor is Android 11/API 30, selected after physical MiTV-MOOQ1 testing; API 34 is also exercised by the emulator. Framework/resource tests now cover API 30 and 34. See [ADR 0002](../architecture/decisions/0002-v1-android-floor.md) for scope. The final API-30-minimum candidate was reinstalled successfully on the physical TV.
 
 ## CI and hooks
 
@@ -68,11 +68,11 @@ Hooks check staged whitespace, common credential patterns and files over 2 MiB; 
 
 ## Remaining validation and implementation
 
-Local verification on 2026-11-04: debug APK assembled; ktlint passed; 35 JVM/resource/real-socket tests passed, including native approval focus and intent dispatch; 5 sender browser flows passed in Chromium and 5 in WebKit; strict TypeScript, ESLint and OpenAPI validation passed. Android lint completed with 0 errors and 16 warnings. No warning was suppressed. These results are local evidence, not device compatibility certification.
+Local verification on 2026-11-04: debug APK assembled; ktlint passed; 37 JVM/resource/real-socket tests passed, including native approval focus and intent dispatch; 6 sender browser flows passed in Chromium and 6 in WebKit; strict TypeScript, ESLint and OpenAPI validation passed. Android lint completed with 0 errors and 16 warnings. No warning was suppressed. These results are local evidence, not device compatibility certification.
 
 - Pencil access is available through its configured local MCP server. The original `2.22` schema header caused the TV document to appear empty; the installed editor publishes schema `2.21`. All three headers were migrated without changing node content or geometry, and all six reference frames were inspected with MCP screenshots and layout queries. See [design validation](../design/validation/README.md). This validates editable references; the development shell is still provisional and has not been visually matched to them.
-- The APK installed and launched on an API 34 Android TV emulator and a physical MiTV-MOOQ1 running Android 11/API 30. D-pad start/stop and real LAN info requests were observed. The connected Android 16 phone runs Chrome 156 and its sender reported a handoff. Full controlled approval/revocation, 4K scaling, offline/isolation and iOS tests still require explicit evidence.
-- Remaining work includes the static public site, runtime visual checks, offline/isolated LAN scenarios, physical browser/device tests, and the full acceptance matrix.
+- The APK installed and launched on an API 34 Android TV emulator and a physical MiTV-MOOQ1 running Android 11/API 30. D-pad start/stop and real LAN info requests were observed. The connected Android 16 phone runs Chrome 156 and its sender reported a handoff. Controlled approval, denial, HTTPS handoff, restart persistence and single-device revocation were also exercised; see the [verification record](verification-v1.md). 4K scaling, offline/isolation and physical iOS tests remain open.
+- The static site is implemented and tested locally. Public Pages deployment, offline/isolated LAN scenarios, remaining physical browser/device tests, and full acceptance remain open.
 - HTTP on a LAN exposes links and credentials to malicious observers; it must never be described as encrypted. New-device pairing must require TV confirmation. No receiver endpoint may fetch arbitrary URLs or proxy LAN/localhost resources.
 - No claim of universal TV or website compatibility is made. Android TV needs an installed receiver and compatible URL handler; login, Widevine, cookies, and remote input can still limit destinations.
 
@@ -81,3 +81,7 @@ No V1 acceptance box should be checked based solely on this increment.
 ## Runtime UI regression fixes
 
 Physical-TV inspection exposed repeated accessibility text changes on each one-second poll even when labels were unchanged. Labels now update only when their content changes; approval expiry updates in five-second display increments while expiration is still enforced on every tick. A regression test verifies unchanged text does not generate repeated updates. D-pad navigation now reaches the configurable port, and invalid ports cannot save a different receiver name. Missing-browser failures show remediation on both the TV and sender. Text colors explicitly follow the validated design palette.
+
+## Static website
+
+Run `npm run check:site`, `npm run format:site`, `npm run build:site`, `npm run test:site` and `npm run test:site:browser`. `npm run dev:site` starts a loopback-only preview. The build derives project paths from `GITHUB_REPOSITORY`; an optional HTTPS `SITE_URL` sets the canonical deployment URL. No TV connection is required. See [publication](../website/publishing.md).

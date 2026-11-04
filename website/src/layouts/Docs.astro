@@ -1,0 +1,88 @@
+---
+import Base from "./Base.astro";
+import { guides, href } from "../lib/navigation";
+interface Props {
+    frontmatter: {
+        title: string;
+        description?: string;
+        toc?: { id: string; label: string }[];
+    };
+}
+const { frontmatter } = Astro.props;
+---
+
+<Base title={frontmatter.title} description={frontmatter.description}>
+    <div class="docs-shell">
+        <aside class="docs-nav">
+            <details open>
+                <summary>Documentation</summary>
+                <label for="guide-search">Find a guide</label>
+                <input
+                    id="guide-search"
+                    type="search"
+                    placeholder="Filter guides"
+                />
+                <nav aria-label="Documentation">
+                    {guides.map(([slug, label]) => (
+                        <a
+                            data-doc-link
+                            href={href(`docs/${slug}/`)}
+                            aria-current={
+                                Astro.url.pathname.endsWith(`/docs/${slug}/`)
+                                    ? "page"
+                                    : undefined
+                            }
+                        >
+                            {label}
+                        </a>
+                    ))}
+                </nav>
+            </details>
+        </aside>
+        <main id="main" class="prose" tabindex="-1">
+            <p class="eyebrow">V1 · DEVELOPMENT PREVIEW</p>
+            <h1>{frontmatter.title}</h1>
+            <p class="muted">
+                Last updated <time datetime="2026-11-04">4 November 2026</time>
+            </p>
+            <slot />
+        </main>
+        {frontmatter.toc && (
+            <aside class="page-toc">
+                <nav aria-label="On this page">
+                    <strong>On this page</strong>
+                    {frontmatter.toc.map(({ id, label }) => (
+                        <a href={`#${id}`}>{label}</a>
+                    ))}
+                </nav>
+            </aside>
+        )}
+    </div>
+</Base>
+<script>
+    const search = document.querySelector<HTMLInputElement>("#guide-search");
+    search?.addEventListener("input", () => {
+        const query = search.value.toLowerCase();
+        document
+            .querySelectorAll<HTMLAnchorElement>("[data-doc-link]")
+            .forEach((link) => {
+                link.hidden = !link.textContent?.toLowerCase().includes(query);
+            });
+    });
+    document.querySelectorAll("pre").forEach((pre) => {
+        const button = document.createElement("button");
+        button.textContent = "Copy code";
+        button.type = "button";
+        button.addEventListener("click", () => {
+            void navigator.clipboard
+                .writeText(pre.querySelector("code")?.textContent ?? "")
+                .then(() => {
+                    button.textContent = "Copied";
+                })
+                .catch(() => {
+                    button.textContent = "Select code to copy";
+                });
+        });
+        pre.after(button);
+    });
+</script>

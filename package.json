@@ -7,16 +7,29 @@
     "lint:web": "eslint sender/src",
     "format:web": "prettier --check sender",
     "build:sender": "node scripts/build-sender.mjs",
-    "test:browser": "node scripts/test-browsers.mjs"
+    "test:browser": "node scripts/test-browsers.mjs",
+    "build:site": "node scripts/build-site.mjs",
+    "check:site": "node scripts/astro-command.mjs check --root website",
+    "test:site": "vitest run website/tests",
+    "dev:site": "node scripts/astro-command.mjs dev --root website --host 127.0.0.1",
+    "format:site": "prettier --plugin=prettier-plugin-astro --check website/src",
+    "test:site:browser": "playwright test --config website.playwright.config.ts --reporter=line"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@astrojs/sitemap": "3.7.4",
+    "@axe-core/playwright": "4.14.0",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.64.1",
     "@redocly/cli": "2.73.0",
+    "@types/node": "24.19.2",
+    "astro": "7.4.5",
     "esbuild": "0.28.2",
     "eslint": "10.14.0",
     "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.1"
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.1.0"
   }
 }

@@ -1,0 +1,163 @@
+---
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/navigation";
+---
+
+<Base title="A link on your phone. A page on your TV.">
+    <main id="main" tabindex="-1">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="eyebrow">LOCAL-FIRST TV HANDOFF</p>
+                <h1 id="hero-title">
+                    A link on your phone.
+                    <br />A page on your TV.
+                </h1>
+                <p class="lede">
+                    SendTV is being built to send URLs straight to Android TV
+                    over your local network. No accounts. No cloud relay.
+                </p>
+                <p class="release-note">
+                    V1 is under verification. No verified release is available
+                    yet.
+                </p>
+                <div class="actions">
+                    <a class="button" href={href("docs/getting-started/")}>
+                        Get started
+                    </a>
+                    <a
+                        class="button secondary"
+                        href={href("docs/architecture/")}
+                    >
+                        Read the docs
+                    </a>
+                </div>
+            </div>
+            <figure
+                class="handoff-illustration"
+                role="img"
+                aria-label="Illustration of a TV pairing screen; its QR placeholder is not scannable and shows no live connection"
+            >
+                <div class="illustration-bar">
+                    Living Room TV <span>Illustration</span>
+                </div>
+                <div class="illustration-screen">
+                    <p>Ready to receive</p>
+                    <div class="qr-art" aria-hidden="true">
+                        QR
+                    </div>
+                    <small>Illustrative UI — QR not scannable</small>
+                </div>
+                <figcaption>
+                    An installed receiver pairs with your phone after TV
+                    approval.
+                </figcaption>
+            </figure>
+        </section>
+        <section id="how-it-works" class="section">
+            <p class="eyebrow">THREE STEPS · V1 FLOW</p>
+            <h2>One link. Your own network.</h2>
+            <ol class="steps">
+                <li>
+                    <span>01</span>
+                    <h3>Install the receiver</h3>
+                    <p>
+                        Use an Android / Google TV with a compatible browser or
+                        URL handler.
+                    </p>
+                </li>
+                <li>
+                    <span>02</span>
+                    <h3>Scan and approve</h3>
+                    <p>
+                        Scan the expiring QR code. Compare the code and approve
+                        the device on your TV.
+                    </p>
+                </li>
+                <li>
+                    <span>03</span>
+                    <h3>Open a link</h3>
+                    <p>
+                        Paste an HTTP(S) address. Android hands it to an
+                        installed handler.
+                    </p>
+                </li>
+            </ol>
+        </section>
+        <section id="features" class="section feature-section">
+            <div>
+                <p class="eyebrow">SMALL BY DESIGN</p>
+                <h2>A handoff, with the owner in control.</h2>
+                <p>
+                    The receiver opens the destination itself. Your phone does
+                    not record or mirror its screen. Trusted devices can be
+                    revoked on the TV.
+                </p>
+                <p>
+                    Works on the LAN without a cloud relay. The destination site
+                    may still need Internet access, TV-side login, DRM support,
+                    or remote input.
+                </p>
+            </div>
+            <div class="compatibility">
+                <h3>What is supported?</h3>
+                <dl>
+                    <div>
+                        <dt>Android / Google TV</dt>
+                        <dd>V1 implementation under verification</dd>
+                    </div>
+                    <div>
+                        <dt>CLI and discovery</dt>
+                        <dd>Planned for V2</dd>
+                    </div>
+                    <div>
+                        <dt>Tizen / webOS</dt>
+                        <dd>Not supported in V1</dd>
+                    </div>
+                    <div>
+                        <dt>Mirroring and file transfer</dt>
+                        <dd>Not part of V1</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+        <section class="privacy-callout section">
+            <p class="eyebrow">PRIVACY, WITHOUT FALSE PROMISES</p>
+            <h2>Local does not mean encrypted.</h2>
+            <p>
+                V1 uses local HTTP. Malicious devices on the network may observe
+                links and credentials. Use a trusted LAN, approve every new
+                device on the TV, and avoid sensitive links on untrusted Wi-Fi.
+            </p>
+            <a href={href("docs/architecture/")}>
+                Read the architecture and tradeoffs →
+            </a>
+        </section>
+        <section class="section faq-preview">
+            <h2>Before you connect</h2>
+            <details>
+                <summary>Does this work on any smart TV?</summary>
+                <p>
+                    No. V1 requires an installed SendTV receiver on Android /
+                    Google TV and a compatible URL handler.
+                </p>
+            </details>
+            <details>
+                <summary>Can it open every website?</summary>
+                <p>
+                    No. Sites can depend on cookies, Widevine, login, a browser,
+                    or input that is difficult with a TV remote.
+                </p>
+            </details>
+            <details>
+                <summary>Is this casting or screen mirroring?</summary>
+                <p>
+                    No. SendTV hands a URL to the TV. Casting, file transfer,
+                    and remote control are outside V1.
+                </p>
+            </details>
+            <a class="button secondary" href={href("docs/faq/")}>
+                Read the FAQ
+            </a>
+        </section>
+    </main>
+</Base>

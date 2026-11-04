@@ -14,5 +14,5 @@ node_modules/
 __pycache__/
 test-results/
 playwright-report/
-website/.astro/
+**/.astro/
 website/public/protocol/

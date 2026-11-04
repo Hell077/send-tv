@@ -4,9 +4,9 @@ An offline-first, local-network protocol and product for sending URLs from phone
 
 ## Development status
 
-The native Kotlin receiver now includes explicit start/stop, LAN binding, expiring QR challenges, TV approval, token-hash persistence and revocation, authenticated HTTP URL handoff and operation status, plus a bundled TypeScript sender. Automated security, socket, Android resource/intent and Chromium/WebKit sender tests are present. Physical TV/browser and full LAN acceptance verification remain open; no V2/V3 work has started.
+The native Kotlin receiver now includes explicit start/stop, LAN binding, expiring QR challenges, TV approval, token-hash persistence and revocation, authenticated HTTP URL handoff and operation status, plus a bundled TypeScript sender. Automated security, socket, Android resource/intent and Chromium/WebKit sender tests are present. Controlled physical TV/browser flows have been verified; the remaining browser/network matrix and public site deployment remain open; no V2/V3 work has started.
 
-Build instructions, verification evidence, and remaining work: [V1 development](docs/development-v1.md). The `.pen` references have been [inspected through Pencil MCP](design/validation/README.md); the implemented receiver UI still needs runtime visual checks. Do not publish the experimental build as a verified V1 release.
+Build instructions, verification evidence, and remaining work: [V1 development](docs/development-v1.md). The `.pen` references have been [inspected through Pencil MCP](design/validation/README.md); runtime captures and their limits are recorded in [V1 verification](docs/verification-v1.md). Do not publish the experimental build as a verified V1 release.
 
 ## Agent entry point
 1. Read `AGENTS.md` and `governance/git.md`.

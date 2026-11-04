@@ -3,10 +3,20 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "lib": ["ES2020", "DOM"],
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
     "strict": true,
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ]
   },
-  "include": ["sender/src/**/*.ts"]
+  "include": [
+    "sender/**/*.ts",
+    "playwright.config.ts",
+    "website.playwright.config.ts"
+  ]
 }
