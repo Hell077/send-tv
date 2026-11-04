@@ -26,6 +26,8 @@ android {
 }
 
 dependencies {
+    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.google.zxing:core:3.5.3")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")
 }
