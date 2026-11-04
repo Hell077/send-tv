@@ -16,3 +16,4 @@ test-results/
 playwright-report/
 **/.astro/
 website/public/protocol/
+website/public/screenshots/

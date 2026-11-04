@@ -15,7 +15,7 @@ toc:
 
 You need an Android / Google TV development device, a compatible installed browser or HTTP(S) URL handler, and a phone or computer on the same trusted Wi-Fi/Ethernet LAN. Samsung Tizen and LG webOS are not supported. Client isolation and VLAN firewalls can prevent pairing.
 
-The initial supported floor is **Android 11/API 30**, selected after physical MiTV-MOOQ1 testing. API 34 is exercised in an Android TV emulator. Older TVs and other models are outside the initial tested compatibility scope. The final candidate still needs a physical reinstall before release.
+The initial supported floor is **Android 11/API 30**, selected after physical MiTV-MOOQ1 testing. API 34 is exercised in an Android TV emulator. Older TVs and other models are outside the initial tested compatibility scope. The API-30-minimum development candidate was reinstalled successfully on that physical TV; this does not certify every API 30+ model.
 
 ## Install
 
@@ -34,6 +34,11 @@ adb shell am start -n org.sendtv.receiver/.ReceiverActivity
 ```
 
 ADB is used here only to install and inspect a development build. The product's pairing and send flow does not use ADB, shell commands, or elevated Android permissions.
+
+<figure>
+<img src="../../screenshots/tv-settings-api30.png" width="1920" height="1080" loading="lazy" alt="SendTV settings on a physical Android 11 TV, with receiver name, port 8765, plaintext HTTP warning and focused Back to Home button" />
+<figcaption>Actual development build on MiTV-MOOQ1, 4 November 2026. Settings are controlled locally on the TV.</figcaption>
+</figure>
 
 ## Pair
 

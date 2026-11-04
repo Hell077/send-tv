@@ -4,6 +4,11 @@ import { resolve } from "node:path";
 
 await mkdir("website/public/protocol", { recursive: true });
 await copyFile("protocol/openapi.yaml", "website/public/protocol/openapi.yaml");
+await mkdir("website/public/screenshots", { recursive: true });
+await copyFile(
+    "docs/screenshots/tv-settings-api30.png",
+    "website/public/screenshots/tv-settings-api30.png",
+);
 const result = spawnSync(
     process.execPath,
     ["node_modules/astro/bin/astro.mjs", "build", "--root", resolve("website")],
