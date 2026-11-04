@@ -17,6 +17,8 @@ Development checks on 2026-11-04; this is not a release certification. Core phys
 
 The controlled Deny flow was repeated with the remote idle after an earlier approval had uncertain input attribution; only the repeat is counted as denial evidence. A native regression test separately dispatches D-pad Center on the default Deny action.
 
-Missing-browser behavior is covered by controlled Android tests and browser fixtures; no installed browser was removed from the household TV. WebKit automation is not physical Safari certification. Physical iOS/Windows, no-Internet LAN, guest-network isolation and 4K runtime checks remain unverified. No household network settings were changed for these tests.
+Missing-browser behavior is covered by controlled Android tests and browser fixtures; no installed browser was removed from the household TV. WebKit automation is not physical Safari certification. Physical iOS/Windows, no-Internet LAN, guest-network isolation and 4K runtime checks remain unverified. No household network settings were changed for these tests. The headless emulator ignored a requested 3840×2160 window-manager size override and remained 1920×1080; its density was restored, and no 4K result is claimed.
 
 HTTP LAN traffic exposes links and credentials to malicious network observers. Pairing requires TV confirmation; this does not encrypt transport. Successful Android intent dispatch does not generally prove page loading or compatibility.
+
+Local final-candidate checks: 37 JVM/resource/socket tests; 12 sender browser checks; 10 site browser checks on each local-root and configured project-base build; three site unit/build checks; Kotlin formatting, Android lint (0 errors, 13 unsuppressed warnings), TypeScript, ESLint, Prettier, OpenAPI, lockfile and guardrail checks passed.
