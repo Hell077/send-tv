@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SendTV</string>
+  <string name="default_receiver_name">Living Room TV</string>
+  <string name="development_status">Receiver setup in progress</string>
+  <string name="development_explanation">Development build. Pairing and URL handoff are not available yet.</string>
+  <string name="network_status">Network listener disabled</string>
+  <string name="settings">Settings</string>
+  <string name="receiver_name_label">Receiver name</string>
+  <string name="save">Save name</string>
+  <string name="back">Back to home</string>
+  <string name="invalid_name">Use 1–48 characters without surrounding spaces, control characters, or hidden formatting.</string>
+  <string name="privacy">Local HTTP does not encrypt traffic. A malicious device on your Wi-Fi may observe links and credentials. Use a trusted network. V1 pairing will require approval on this TV.</string>
+</resources>
