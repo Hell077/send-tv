@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Looper
+import android.view.KeyEvent
 import android.widget.Button
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -20,8 +21,24 @@ import org.robolectric.shadows.ShadowDialog
 import java.time.Duration
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [26, 34])
+@Config(sdk = [30, 34])
 class ReceiverIntegrationTest {
+    @Test fun dpadCenterOnDefaultDenyCannotApprove() {
+        Robolectric.buildActivity(ReceiverActivity::class.java).setup().use { controller ->
+            val app = controller.get().application as ReceiverApplication
+            val request = app.pairing.request(app.pairing.challenge().nonce, "Denied phone", "test")
+            shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(1))
+            val dialog = ShadowDialog.getLatestDialog()
+            assertTrue(dialog.findViewById<Button>(R.id.deny).hasFocus())
+            dialog.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_CENTER))
+            dialog.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_CENTER))
+            shadowOf(Looper.getMainLooper()).idle()
+            assertEquals("denied", request.status)
+            assertNull(request.accessToken)
+            assertTrue(app.pairing.devices().isEmpty())
+        }
+    }
+
     @Test fun approvalBeginsOnDenyAndOnlyOwnerClickGrantsToken() {
         Robolectric.buildActivity(ReceiverActivity::class.java).setup().use { controller ->
             val app = controller.get().application as ReceiverApplication

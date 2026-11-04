@@ -22,7 +22,7 @@ import org.robolectric.annotation.Config
 import java.time.Duration
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [26, 34])
+@Config(sdk = [30, 34])
 class ReceiverActivityTest {
     @Before
     fun clearPreferences() {
