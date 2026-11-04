@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: SendTV Receiver API
+  version: 0.1.0
+  description: Initial contract; pairing implementation must require TV approval.
+servers:
+  - url: http://{receiver}:8765/v1
+    variables:
+      receiver:
+        default: 192.168.1.42
+paths:
+  /info:
+    get:
+      operationId: getInfo
+      responses:
+        '200':
+          description: Basic receiver info
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [protocolVersion, deviceId, name, capabilities]
+                properties:
+                  protocolVersion: {type: integer, const: 1}
+                  deviceId: {type: string}
+                  name: {type: string}
+                  capabilities: {type: array, items: {type: string}}
+  /open:
+    post:
+      operationId: openUrl
+      security: [{bearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [url, requestId]
+              properties:
+                url: {type: string, maxLength: 4096, format: uri}
+                requestId: {type: string, minLength: 8, maxLength: 128}
+      responses:
+        '202':
+          description: Accepted for launch; not proof page loaded
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [operationId, status]
+                properties:
+                  operationId: {type: string}
+                  status: {type: string, const: accepted}
+        '400': {description: Invalid request / URL}
+        '401': {description: Authentication required or invalid}
+        '429': {description: Rate limit}
+  /operations/{id}:
+    get:
+      operationId: getOperation
+      security: [{bearerAuth: []}]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: Launch state
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [operationId, status]
+                properties:
+                  operationId: {type: string}
+                  status: {type: string, enum: [accepted, launching, launched, failed]}
+                  errorCode: {type: string}
+        '401': {description: Authentication required}
+        '404': {description: Not found}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque

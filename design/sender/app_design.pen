@@ -1,0 +1,288 @@
+{
+  "version": "2.22",
+  "children": [
+    {
+      "id": "Sender connected — 390 x 844",
+      "type": "frame",
+      "name": "Sender connected — 390 x 844",
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844,
+      "layout": "none",
+      "fill": "#080D19",
+      "children": [
+        {
+          "id": "app-brand",
+          "type": "text",
+          "x": 24,
+          "y": 44,
+          "content": "▣  SendTV",
+          "fontSize": 25,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "app-caption",
+          "type": "text",
+          "x": 24,
+          "y": 94,
+          "content": "Send a link to your TV",
+          "fontSize": 17,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "device-card",
+          "type": "rectangle",
+          "x": 20,
+          "y": 154,
+          "width": 350,
+          "height": 117,
+          "fill": "#101A2C",
+          "cornerRadius": 18,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "device-title",
+          "type": "text",
+          "x": 42,
+          "y": 176,
+          "content": "Living Room TV",
+          "fontSize": 21,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "device-status",
+          "type": "text",
+          "x": 42,
+          "y": 217,
+          "content": "● Connected · Android TV",
+          "fontSize": 15,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#4ADE80"
+        },
+        {
+          "id": "field-label",
+          "type": "text",
+          "x": 24,
+          "y": 322,
+          "content": "WEBSITE ADDRESS",
+          "fontSize": 13,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "url-input",
+          "type": "rectangle",
+          "x": 20,
+          "y": 349,
+          "width": 350,
+          "height": 70,
+          "fill": "#17243A",
+          "cornerRadius": 14,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "url-input-value",
+          "type": "text",
+          "x": 39,
+          "y": 373,
+          "content": "https://example.com",
+          "fontSize": 18,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "send-button",
+          "type": "rectangle",
+          "x": 20,
+          "y": 450,
+          "width": 350,
+          "height": 60,
+          "fill": "#60A5FA",
+          "cornerRadius": 13
+        },
+        {
+          "id": "send-button-label",
+          "type": "text",
+          "x": 130,
+          "y": 470,
+          "content": "Open on TV",
+          "fontSize": 20,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#080D19"
+        },
+        {
+          "id": "privacy-line",
+          "type": "text",
+          "x": 35,
+          "y": 547,
+          "content": "Sent over your local network",
+          "fontSize": 15,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "tip",
+          "type": "rectangle",
+          "x": 20,
+          "y": 612,
+          "width": 350,
+          "height": 120,
+          "fill": "#101A2C",
+          "cornerRadius": 18,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "tip-title",
+          "type": "text",
+          "x": 41,
+          "y": 635,
+          "content": "A simple handoff",
+          "fontSize": 18,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "tip-line-1",
+          "type": "text",
+          "x": 41,
+          "y": 670,
+          "content": "The TV opens the link itself.",
+          "fontSize": 15,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "tip-line-2",
+          "type": "text",
+          "x": 41,
+          "y": 696,
+          "content": "Your phone can go to sleep.",
+          "fontSize": 15,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        }
+      ]
+    },
+    {
+      "id": "Sender pairing pending — 390 x 844",
+      "type": "frame",
+      "name": "Sender pairing pending — 390 x 844",
+      "x": 470,
+      "y": 0,
+      "width": 390,
+      "height": 844,
+      "layout": "none",
+      "fill": "#080D19",
+      "children": [
+        {
+          "id": "pending-title",
+          "type": "text",
+          "x": 24,
+          "y": 48,
+          "content": "Approve on your TV",
+          "fontSize": 28,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "pending-desc",
+          "type": "text",
+          "x": 24,
+          "y": 108,
+          "content": "Check the request on Living Room TV.",
+          "fontSize": 16,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "pending-card",
+          "type": "rectangle",
+          "x": 22,
+          "y": 177,
+          "width": 346,
+          "height": 320,
+          "fill": "#101A2C",
+          "cornerRadius": 20,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "pending-icon",
+          "type": "text",
+          "x": 156,
+          "y": 227,
+          "content": "◉",
+          "fontSize": 70,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#60A5FA"
+        },
+        {
+          "id": "pending-wait",
+          "type": "text",
+          "x": 98,
+          "y": 334,
+          "content": "Waiting for approval",
+          "fontSize": 20,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "pending-note",
+          "type": "text",
+          "x": 86,
+          "y": 381,
+          "content": "This request expires shortly",
+          "fontSize": 15,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "pending-cancel",
+          "type": "rectangle",
+          "x": 24,
+          "y": 544,
+          "width": 342,
+          "height": 56,
+          "fill": "#17243A",
+          "cornerRadius": 12,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "pending-cancel-text",
+          "type": "text",
+          "x": 164,
+          "y": 563,
+          "content": "Cancel",
+          "fontSize": 17,
+          "fontFamily": "Inter",
+          "fontWeight": "600",
+          "fill": "#F8FAFC"
+        }
+      ]
+    }
+  ]
+}

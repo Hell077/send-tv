@@ -1,0 +1,252 @@
+{
+  "version": "2.22",
+  "children": [
+    {
+      "id": "TV receiver home — 1920 x 1080",
+      "type": "frame",
+      "name": "TV receiver home — 1920 x 1080",
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "layout": "none",
+      "fill": "#080D19",
+      "children": [
+        {
+          "id": "tv-brand",
+          "type": "text",
+          "x": 94,
+          "y": 63,
+          "content": "▣  SendTV",
+          "fontSize": 40,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "tv-online",
+          "type": "text",
+          "x": 1630,
+          "y": 78,
+          "content": "●  Network available",
+          "fontSize": 23,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#4ADE80"
+        },
+        {
+          "id": "tv-hero",
+          "type": "rectangle",
+          "x": 296,
+          "y": 180,
+          "width": 1328,
+          "height": 699,
+          "fill": "#101A2C",
+          "cornerRadius": 32,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "tv-ready",
+          "type": "text",
+          "x": 736,
+          "y": 242,
+          "content": "Ready to receive",
+          "fontSize": 56,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "tv-instructions",
+          "type": "text",
+          "x": 601,
+          "y": 333,
+          "content": "Scan the QR code with your phone to connect",
+          "fontSize": 29,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "tv-qr-card",
+          "type": "rectangle",
+          "x": 790,
+          "y": 411,
+          "width": 330,
+          "height": 330,
+          "fill": "#F8FAFC",
+          "cornerRadius": 20
+        },
+        {
+          "id": "tv-qr-label",
+          "type": "text",
+          "x": 900,
+          "y": 526,
+          "content": "QR",
+          "fontSize": 84,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#080D19"
+        },
+        {
+          "id": "tv-qr-disclaimer",
+          "type": "text",
+          "x": 840,
+          "y": 749,
+          "content": "Illustration only",
+          "fontSize": 21,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "tv-local",
+          "type": "text",
+          "x": 741,
+          "y": 804,
+          "content": "Living Room TV · 192.168.1.42",
+          "fontSize": 24,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "tv-footer",
+          "type": "text",
+          "x": 675,
+          "y": 941,
+          "content": "Devices                Settings                Privacy",
+          "fontSize": 25,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        }
+      ]
+    },
+    {
+      "id": "TV approve pairing — 1920 x 1080",
+      "type": "frame",
+      "name": "TV approve pairing — 1920 x 1080",
+      "x": 2040,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "layout": "none",
+      "fill": "#080D19",
+      "children": [
+        {
+          "id": "approve-brand",
+          "type": "text",
+          "x": 94,
+          "y": 63,
+          "content": "▣  SendTV",
+          "fontSize": 40,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "approve-dialog",
+          "type": "rectangle",
+          "x": 360,
+          "y": 190,
+          "width": 1200,
+          "height": 675,
+          "fill": "#101A2C",
+          "cornerRadius": 36,
+          "stroke": "#29405F",
+          "strokeWidth": 1
+        },
+        {
+          "id": "approve-head",
+          "type": "text",
+          "x": 655,
+          "y": 275,
+          "content": "Allow this device?",
+          "fontSize": 57,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "approve-device",
+          "type": "text",
+          "x": 778,
+          "y": 395,
+          "content": "Alexey’s phone",
+          "fontSize": 37,
+          "fontFamily": "Inter",
+          "fontWeight": "600",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "approve-tip",
+          "type": "text",
+          "x": 610,
+          "y": 464,
+          "content": "A device wants to send links to this TV.",
+          "fontSize": 29,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        },
+        {
+          "id": "deny-button",
+          "type": "rectangle",
+          "x": 565,
+          "y": 605,
+          "width": 335,
+          "height": 95,
+          "fill": "#17243A",
+          "cornerRadius": 20,
+          "stroke": "#60A5FA",
+          "strokeWidth": 1
+        },
+        {
+          "id": "deny-text",
+          "type": "text",
+          "x": 683,
+          "y": 629,
+          "content": "Deny",
+          "fontSize": 34,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#F8FAFC"
+        },
+        {
+          "id": "allow-button",
+          "type": "rectangle",
+          "x": 960,
+          "y": 605,
+          "width": 335,
+          "height": 95,
+          "fill": "#60A5FA",
+          "cornerRadius": 20
+        },
+        {
+          "id": "allow-text",
+          "type": "text",
+          "x": 1077,
+          "y": 629,
+          "content": "Allow",
+          "fontSize": 34,
+          "fontFamily": "Inter",
+          "fontWeight": "700",
+          "fill": "#080D19"
+        },
+        {
+          "id": "approve-expiry",
+          "type": "text",
+          "x": 798,
+          "y": 765,
+          "content": "Request expires in 60s",
+          "fontSize": 24,
+          "fontFamily": "Inter",
+          "fontWeight": "400",
+          "fill": "#A8BCD6"
+        }
+      ]
+    }
+  ]
+}
