@@ -134,7 +134,10 @@ class ReceiverApplication : Application() {
         if (!enabled) return "RECEIVER_STOPPED"
         val activity = visibleActivity?.get() ?: return "RETURN_TO_RECEIVER"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).addCategory(Intent.CATEGORY_BROWSABLE)
-        if (packageManager.resolveActivity(intent, 0) == null) return "NO_BROWSER"
+        if (packageManager.resolveActivity(intent, 0) == null) {
+            activity.showLaunchFailure()
+            return "NO_BROWSER"
+        }
         return try {
             activity.startActivity(intent)
             null

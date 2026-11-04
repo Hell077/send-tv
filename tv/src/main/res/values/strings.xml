@@ -21,6 +21,8 @@
   <string name="port_label">Receiver port (1024–65535)</string>
   <string name="invalid_port">Use a port from 1024 to 65535</string>
   <string name="storage_failure">Could not save access settings. Please retry.</string>
+  <string name="no_browser">No compatible browser installed</string>
+  <string name="no_browser_help">Install a compatible TV browser or URL handler through your TV’s normal installation process. Return to SendTV and retry.</string>
   <string name="default_receiver_name">Living Room TV</string>
   <string name="development_status">Receiver setup in progress</string>
   <string name="development_explanation">Development build. Pairing and URL handoff are not available yet.</string>
@@ -30,5 +32,5 @@
   <string name="save">Save name</string>
   <string name="back">Back to home</string>
   <string name="invalid_name">Use 1–48 characters without surrounding spaces, control characters, or hidden formatting.</string>
-  <string name="privacy">Local HTTP does not encrypt traffic. A malicious device on your Wi-Fi may observe links and credentials. Use a trusted network. V1 pairing will require approval on this TV.</string>
+  <string name="privacy">Local HTTP does not encrypt traffic. A malicious device on your Wi-Fi may observe links and credentials. Use a trusted network. Pairing requires approval on this TV.</string>
 </resources>

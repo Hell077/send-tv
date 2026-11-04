@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="48dp" android:background="#080D19">
-  <TextView style="@style/TvText" android:text="@string/approval_title" android:textSize="32sp" android:gravity="center" android:accessibilityHeading="true" />
-  <TextView style="@style/TvText" android:id="@+id/sender_name" android:textSize="28sp" android:gravity="center" android:maxLines="2" />
+  <TextView style="@style/TvText" android:text="@string/approval_title" android:textColor="#F8FAFC" android:textStyle="bold" android:textSize="32sp" android:gravity="center" android:accessibilityHeading="true" />
+  <TextView style="@style/TvText" android:id="@+id/sender_name" android:textColor="#F8FAFC" android:textSize="28sp" android:gravity="center" android:maxLines="2" />
   <TextView style="@style/TvText" android:id="@+id/verification" android:gravity="center" />
   <TextView style="@style/TvText" android:text="@string/approval_tip" android:gravity="center" />
   <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">

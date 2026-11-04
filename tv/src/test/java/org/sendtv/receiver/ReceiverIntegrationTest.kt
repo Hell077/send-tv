@@ -15,6 +15,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowAlertDialog
 import org.robolectric.shadows.ShadowDialog
 import java.time.Duration
 
@@ -70,6 +71,7 @@ class ReceiverIntegrationTest {
             val app = activity.application as ReceiverApplication
             app.setEnabled(true)
             assertEquals("NO_BROWSER", app.launch("https://example.com/"))
+            assertEquals(activity.getString(R.string.no_browser_help), shadowOf(ShadowAlertDialog.getLatestAlertDialog()).message)
             assertNull(shadowOf(activity).nextStartedActivity)
             app.setEnabled(false)
         }

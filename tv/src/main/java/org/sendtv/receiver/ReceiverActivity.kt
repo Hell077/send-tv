@@ -85,23 +85,15 @@ class ReceiverActivity : Activity() {
 
     private fun updateHome() {
         if (!home) return
-        findViewById<TextView>(R.id.receiver_name).text = prefs.getString("name", getString(R.string.default_receiver_name))
-        findViewById<TextView>(R.id.network_state).text = receiver.networkMessage
+        label(R.id.receiver_name, prefs.getString("name", getString(R.string.default_receiver_name))!!)
+        label(R.id.network_state, receiver.networkMessage)
         val address = receiver.address.takeIf { receiver.isEnabled() }
-        findViewById<Button>(R.id.toggle_server).setText(if (receiver.isEnabled()) R.string.stop_receiver else R.string.start_receiver)
-        findViewById<TextView>(R.id.home_title).setText(if (address == null) R.string.receiver_stopped else R.string.ready)
-        findViewById<TextView>(R.id.home_instructions).setText(
-            if (address ==
-                null
-            ) {
-                R.string.start_instructions
-            } else {
-                R.string.scan_instructions
-            },
-        )
+        label(R.id.toggle_server, getString(if (receiver.isEnabled()) R.string.stop_receiver else R.string.start_receiver))
+        label(R.id.home_title, getString(if (address == null) R.string.receiver_stopped else R.string.ready))
+        label(R.id.home_instructions, getString(if (address == null) R.string.start_instructions else R.string.scan_instructions))
         val qr = findViewById<ImageView>(R.id.pairing_qr)
         qr.visibility = if (address == null) View.GONE else View.VISIBLE
-        findViewById<TextView>(R.id.receiver_address).text = address?.let { "http://$it" } ?: ""
+        label(R.id.receiver_address, address?.let { "http://$it" } ?: "")
         if (address != null) {
             val url = "http://$address/#challenge=${receiver.pairing.challenge().nonce}"
             if (url != lastQr) {
@@ -114,6 +106,14 @@ class ReceiverActivity : Activity() {
         } else {
             lastQr = null
         }
+    }
+
+    private fun label(
+        id: Int,
+        value: String,
+    ) {
+        val view = findViewById<TextView>(id)
+        if (view.text.toString() != value) view.text = value
     }
 
     private fun updateApproval() {
@@ -148,7 +148,8 @@ class ReceiverActivity : Activity() {
         }
         if (pending != null) {
             val remaining = ((pending.expiresAt - System.nanoTime() / 1_000_000) / 1000).coerceAtLeast(0).toInt()
-            approval?.findViewById<TextView>(R.id.approval_expiry)?.text = getString(R.string.approval_expires, remaining)
+            val message = getString(R.string.approval_expires, ((remaining + 4) / 5) * 5)
+            approval?.findViewById<TextView>(R.id.approval_expiry)?.let { if (it.text.toString() != message) it.text = message }
         }
     }
 
@@ -169,6 +170,15 @@ class ReceiverActivity : Activity() {
     }
 
     private fun storageFailure() = Toast.makeText(this, R.string.storage_failure, Toast.LENGTH_LONG).show()
+
+    internal fun showLaunchFailure() {
+        AlertDialog
+            .Builder(this)
+            .setTitle(R.string.no_browser)
+            .setMessage(R.string.no_browser_help)
+            .setPositiveButton(R.string.back, null)
+            .show()
+    }
 
     private fun showSettings() {
         home = false
