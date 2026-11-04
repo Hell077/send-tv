@@ -32,6 +32,19 @@ test("a direct visit requires a TV QR and explains HTTP risk", async ({
     ).toBeVisible();
 });
 
+test("a new QR can arrive in an already open sender tab", async ({ page }) => {
+    await page.goto("/");
+    await expect(
+        page.getByRole("button", { name: "Request TV approval" }),
+    ).toBeDisabled();
+    const challenge = await readFile("build/test-challenge", "utf8");
+    await page.goto(`/#challenge=${challenge}`);
+    await expect(
+        page.getByRole("button", { name: "Request TV approval" }),
+    ).toBeEnabled();
+    await expect(page).toHaveURL("http://127.0.0.1:18765/");
+});
+
 test("pairs through the real API and reports handoff without claiming page load", async ({
     page,
 }) => {

@@ -31,7 +31,7 @@ const sendButton = element<HTMLButtonElement>("send");
 const nameInput = element<HTMLInputElement>("name");
 const urlInput = element<HTMLInputElement>("url");
 const remember = element<HTMLInputElement>("remember");
-const challenge = new URLSearchParams(location.hash.slice(1)).get("challenge");
+let challenge = new URLSearchParams(location.hash.slice(1)).get("challenge");
 history.replaceState(null, "", location.pathname);
 
 let token: string | null = null;
@@ -307,6 +307,7 @@ element("retry").addEventListener("click", () => {
 });
 
 async function connect() {
+    const current = ++generation;
     error.textContent = "";
     render("Connecting…", false, true);
     try {
@@ -315,6 +316,7 @@ async function connect() {
             name: string;
             protocolVersion: number;
         }>("/info");
+        if (current !== generation) return;
         if (info.protocolVersion !== 1) throw new ApiError("UNKNOWN");
         storageKey = `sendtv.credential.${info.deviceId}`;
         element("receiver").textContent = info.name;
@@ -334,8 +336,27 @@ async function connect() {
         );
         if (token) urlInput.focus();
     } catch (failure) {
-        fail(failure);
+        if (current === generation) fail(failure);
     }
 }
+
+globalThis.addEventListener("hashchange", () => {
+    const next = new URLSearchParams(location.hash.slice(1)).get("challenge");
+    if (!next) return;
+    history.replaceState(null, "", location.pathname);
+    challenge = next;
+    const previous = ticket;
+    ticket = null;
+    if (previous) {
+        // Delivery may already have completed; undelivered requests also expire on the TV.
+        void api(
+            `/pair/${previous.requestId}`,
+            "DELETE",
+            undefined,
+            previous.pollToken,
+        ).catch(() => {});
+    }
+    void connect();
+});
 
 void connect();
