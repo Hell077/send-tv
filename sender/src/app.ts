@@ -272,7 +272,7 @@ element<HTMLFormElement>("send-form").addEventListener("submit", (event) => {
             if (current === generation) {
                 render("Handoff status timed out");
                 error.textContent =
-                    "The TV may have opened the link. Retry checks the same operation without launching a duplicate.";
+                    "The TV may have opened the link. Retry rechecks it within the same receiver session for five minutes. After a restart, check the TV before retrying.";
             }
         } catch (failure) {
             if (current === generation) fail(failure);
