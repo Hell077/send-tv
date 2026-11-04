@@ -1,0 +1,10 @@
+{
+  "name": "sendtv-checks",
+  "private": true,
+  "scripts": {
+    "check:protocol": "redocly lint protocol/openapi.yaml"
+  },
+  "devDependencies": {
+    "@redocly/cli": "2.73.0"
+  }
+}

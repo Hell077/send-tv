@@ -12,6 +12,8 @@ paths:
   /info:
     get:
       operationId: getInfo
+      summary: Read public receiver identity and capabilities
+      security: []
       responses:
         '200':
           description: Basic receiver info
@@ -28,6 +30,7 @@ paths:
   /open:
     post:
       operationId: openUrl
+      summary: Queue an authorized URL handoff
       security: [{bearerAuth: []}]
       requestBody:
         required: true
@@ -57,6 +60,7 @@ paths:
   /operations/{id}:
     get:
       operationId: getOperation
+      summary: Read an authorized URL handoff status
       security: [{bearerAuth: []}]
       parameters:
         - name: id

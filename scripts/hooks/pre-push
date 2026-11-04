@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+python3 -m unittest discover -s scripts -p 'test_*.py'
+./gradlew :tv:testDebugUnitTest :tv:lintDebug --console=plain
+npm run check:protocol
