@@ -6,7 +6,7 @@ An offline-first, local-network protocol and product for sending URLs from phone
 
 The first increment adds a native Kotlin Android TV development shell, local receiver-name settings, JVM tests, and build/CI configuration. The shell explicitly reports that its network listener is disabled. It has no network permission, pairing, QR, or URL dispatch yet. V1 acceptance criteria remain unchecked; no V2/V3 work has started.
 
-Build instructions, verification evidence, and remaining blockers: [V1 development](docs/development-v1.md). The UI is provisional until the `.pen` files can be opened and validated in Pencil. Do not publish this shell as a usable SendTV receiver.
+Build instructions, verification evidence, and remaining work: [V1 development](docs/development-v1.md). The `.pen` references have been [inspected through Pencil MCP](design/validation/README.md); the development shell still needs the final UI implementation and runtime visual checks. Do not publish this shell as a usable SendTV receiver.
 
 ## Agent entry point
 1. Read `AGENTS.md` and `governance/git.md`.
