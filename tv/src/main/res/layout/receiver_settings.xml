@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="48dp">
+    <TextView style="@style/TvText" android:text="@string/settings" android:textSize="28sp" android:accessibilityHeading="true" />
+    <TextView style="@style/TvText" android:text="@string/receiver_name_label" android:labelFor="@id/name_input" />
+    <EditText android:id="@+id/name_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapWords" android:singleLine="true" android:importantForAutofill="no" android:textSize="24sp" android:minHeight="64dp" android:nextFocusDown="@id/port_input" />
+    <TextView style="@style/TvText" android:text="@string/port_label" android:labelFor="@id/port_input" />
+    <EditText android:id="@+id/port_input" android:nextFocusUp="@id/name_input" android:nextFocusDown="@id/back_home" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:singleLine="true" android:importantForAutofill="no" android:textSize="24sp" android:minHeight="64dp" />
+    <TextView style="@style/TvText" android:text="@string/privacy" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+      <Button style="@style/TvButton" android:id="@+id/back_home" android:text="@string/back" android:nextFocusRight="@id/save_name" android:nextFocusUp="@id/port_input" />
+      <Button style="@style/TvButton" android:id="@+id/save_name" android:text="@string/save" android:nextFocusLeft="@id/back_home" android:nextFocusRight="@id/language" android:nextFocusUp="@id/port_input" />
+      <Button style="@style/TvButton" android:id="@+id/language" android:text="@string/language" android:nextFocusUp="@id/port_input" android:nextFocusLeft="@id/save_name" />
+    </LinearLayout>
+  </LinearLayout>
+</ScrollView>

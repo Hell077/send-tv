@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:paddingStart="48dp" android:paddingEnd="48dp" android:paddingTop="28dp" android:paddingBottom="28dp">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+    <TextView style="@style/TvText" android:layout_width="0dp" android:layout_weight="1" android:text="@string/app_name" android:textSize="28sp" android:textColor="#F8FAFC" android:textStyle="bold" android:accessibilityHeading="true" />
+    <TextView style="@style/TvText" android:id="@+id/network_state" android:layout_width="wrap_content" android:text="@string/network_status" android:textSize="18sp" />
+  </LinearLayout>
+  <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:background="@drawable/action_background" android:padding="12dp">
+    <TextView android:id="@+id/home_title" android:textColor="#F8FAFC" android:textStyle="bold" style="@style/TvText" android:gravity="center" android:text="@string/receiver_stopped" android:textSize="28sp" android:layout_marginBottom="4dp" />
+    <TextView android:id="@+id/home_instructions" style="@style/TvText" android:gravity="center" android:text="@string/start_instructions" android:layout_marginBottom="8dp" />
+    <ImageView android:id="@+id/pairing_qr" android:layout_width="164dp" android:layout_height="164dp" android:background="#F8FAFC" android:contentDescription="@string/qr_description" android:visibility="gone" />
+    <TextView style="@style/TvText" android:id="@+id/receiver_name" android:gravity="center" android:textSize="20sp" android:layout_marginTop="8dp" android:layout_marginBottom="0dp" android:maxLines="1" android:ellipsize="end" />
+    <TextView style="@style/TvText" android:id="@+id/receiver_address" android:gravity="center" android:textSize="18sp" android:layout_marginBottom="0dp" />
+  </LinearLayout>
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:paddingTop="12dp">
+    <Button style="@style/TvButton" android:id="@+id/settings" android:text="@string/settings" />
+    <Button style="@style/TvButton" android:id="@+id/toggle_server" android:text="@string/start_receiver" />
+    <Button style="@style/TvButton" android:id="@+id/devices" android:text="@string/devices" />
+  </LinearLayout>
+</LinearLayout>

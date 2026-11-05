@@ -1,5 +1,7 @@
 # Landing copy (English draft)
 
+[Русский](../docs/ru/website/content.md)
+
 ## Hero
 **A link on your phone. A page on your TV.**
 Send URLs from any device to your Android TV over your local network. No accounts. No cloud relay.

@@ -1,5 +1,7 @@
 # Engineering quality gates
 
+[Русский](../docs/ru/governance/quality.md)
+
 - Kotlin: ktlint or detekt; JVM unit tests for URL validator, pairing FSM, authorization; Android instrumentation test for Intent dispatch where available.
 - Go: `gofmt`, `go vet`, `go test -race ./...` on supported CI runners, discovery/parser contract tests.
 - TypeScript: strict TS, ESLint, Prettier, Vitest, Playwright for sender and website critical paths.

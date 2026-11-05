@@ -1,0 +1,14 @@
+---
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/navigation";
+---
+
+<Base title="Page not found">
+    <main id="main" class="section">
+        <h1>Page not found</h1>
+        <p>This address does not match a SendTV guide.</p>
+        <a class="button" href={href("docs/getting-started/")}>
+            Open getting started
+        </a>
+    </main>
+</Base>

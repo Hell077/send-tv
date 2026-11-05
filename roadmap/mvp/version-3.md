@@ -1,5 +1,7 @@
 # V3 — Files and remote control (post-initial MVP)
 
+[Русский](../../docs/ru/roadmap/mvp/version-3.md)
+
 ## Features
 - Image and PDF transfer with explicit user acceptance, safe MIME detection, max file size and bounded on-TV storage.
 - Receiver gallery with delete/expiry controls, secure temporary URLs and rejection of ZIP bombs/malformed payloads.

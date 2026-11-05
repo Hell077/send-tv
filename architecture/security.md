@@ -1,5 +1,7 @@
 # Threat model and pairing
 
+[Русский](../docs/ru/architecture/security.md)
+
 ## Threats
 Malicious device on shared Wi-Fi; replayed QR nonce; stolen bearer token; drive-by browser requests; fake receiver; accidental URL with unsafe scheme; LAN packet inspection; guest network isolation; denial-of-service and abuse.
 

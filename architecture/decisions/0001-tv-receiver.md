@@ -1,5 +1,7 @@
 # ADR 0001 — Native Android TV receiver
 
+[Русский](../../docs/ru/architecture/decisions/0001-tv-receiver.md)
+
 Status: Accepted for MVP.
 
 ## Decision

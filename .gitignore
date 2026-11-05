@@ -1,3 +1,19 @@
 # BEGIN agentx
 .agentx/
 # END agentx
+.idea/
+.gradle/
+.kotlin/
+**/build/
+local.properties
+*.jks
+*.keystore
+*.apk
+*.aab
+node_modules/
+__pycache__/
+test-results/
+playwright-report/
+**/.astro/
+website/public/protocol/
+website/public/screenshots/

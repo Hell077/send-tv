@@ -2,16 +2,89 @@ openapi: 3.1.0
 info:
   title: SendTV Receiver API
   version: 0.1.0
-  description: Initial contract; pairing implementation must require TV approval.
+  description: >-
+    Receiver-hosted HTTP JSON. Plain HTTP does not encrypt links or credentials.
+    Pairing requires TV approval. Browser requests must use the exact receiver
+    Origin; state-changing requests require that Origin and application/json.
+    Host must match the explicitly bound receiver address and port.
+    Responses are no-store; no wildcard CORS or remote proxy endpoints exist.
 servers:
   - url: http://{receiver}:8765/v1
     variables:
       receiver:
         default: 192.168.1.42
 paths:
+  /pair:
+    post:
+      operationId: requestPairing
+      summary: Request TV approval using a short-lived QR challenge
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [challenge, deviceName]
+              properties:
+                challenge: {type: string, minLength: 43, maxLength: 43}
+                deviceName: {type: string, minLength: 1, maxLength: 48}
+      responses:
+        '202':
+          description: Pending TV approval; challenge consumed immediately
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [requestId, pollToken, status, expiresIn, verificationCode]
+                properties:
+                  requestId: {type: string}
+                  pollToken: {type: string, description: 256-bit secret for this request only}
+                  status: {type: string, const: pending}
+                  expiresIn: {type: integer, minimum: 0, maximum: 60}
+                  verificationCode: {type: string, pattern: '^[0-9]{6}$'}
+        default:
+          $ref: '#/components/responses/Error'
+  /pair/{requestId}:
+    parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema: {type: string, pattern: '^[A-Za-z0-9_-]{43}$'}
+    get:
+      operationId: getPairingStatus
+      summary: Poll a request with its separate polling credential
+      security: [{pairingAuth: []}]
+      responses:
+        '200':
+          description: Token delivered only after TV approval and before request expiry
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [status]
+                properties:
+                  status: {type: string, enum: [pending, denied, approved]}
+                  accessToken: {type: string, description: Present only when approved; scoped to opening URLs}
+                  deviceId: {type: string, description: Present only when approved}
+        default:
+          $ref: '#/components/responses/Error'
+    delete:
+      operationId: cancelPairing
+      summary: Cancel a pending approval request
+      security: [{pairingAuth: []}]
+      responses:
+        '204': {description: Pending request denied; already approved requests remain approved}
+        default:
+          $ref: '#/components/responses/Error'
   /info:
     get:
       operationId: getInfo
+      summary: Read public receiver identity and capabilities
+      security: []
       responses:
         '200':
           description: Basic receiver info
@@ -25,9 +98,12 @@ paths:
                   deviceId: {type: string}
                   name: {type: string}
                   capabilities: {type: array, items: {type: string}}
+        default:
+          $ref: '#/components/responses/Error'
   /open:
     post:
       operationId: openUrl
+      summary: Queue an authorized URL handoff
       security: [{bearerAuth: []}]
       requestBody:
         required: true
@@ -54,9 +130,13 @@ paths:
         '400': {description: Invalid request / URL}
         '401': {description: Authentication required or invalid}
         '429': {description: Rate limit}
+        '409': {description: Idempotency key reused with a different URL}
+        default:
+          $ref: '#/components/responses/Error'
   /operations/{id}:
     get:
       operationId: getOperation
+      summary: Read an authorized URL handoff status
       security: [{bearerAuth: []}]
       parameters:
         - name: id
@@ -77,8 +157,26 @@ paths:
                   errorCode: {type: string}
         '401': {description: Authentication required}
         '404': {description: Not found}
+        default:
+          $ref: '#/components/responses/Error'
 components:
+  responses:
+    Error:
+      description: Rejected safely; messages contain no credentials or destination URLs
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [code, message]
+            properties:
+              code: {type: string}
+              message: {type: string}
   securitySchemes:
+    pairingAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: Separate 256-bit credential issued for one expiring pairing request
     bearerAuth:
       type: http
       scheme: bearer

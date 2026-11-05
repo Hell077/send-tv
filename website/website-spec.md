@@ -1,5 +1,7 @@
 # Public website / docs specification
 
+[Русский](../docs/ru/website/website-spec.md)
+
 ## Host and architecture
 GitHub Pages via GitHub Actions, static build only. Suggested stack: Astro + TypeScript + MDX (or another static generator with clear rationale). Public `/` landing + `/docs/` versioned guides. No dependency on running TV receiver; no server-side API, mandatory accounts or tracking.
 

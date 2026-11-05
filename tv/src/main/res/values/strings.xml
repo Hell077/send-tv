@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SendTV</string>
+  <string name="receiver_stopped">Receiver stopped</string>
+  <string name="start_instructions">Start the receiver on your trusted home network</string>
+  <string name="ready">Ready to receive</string>
+  <string name="scan_instructions">Scan with your phone to connect. Approve on this TV.</string>
+  <string name="qr_description">Short-lived pairing QR code. Scan with your phone camera.</string>
+  <string name="start_receiver">Start receiver</string>
+  <string name="stop_receiver">Stop receiver</string>
+  <string name="devices">Devices</string>
+  <string name="no_devices">No trusted devices yet</string>
+  <string name="revoke_all">Revoke all devices</string>
+  <string name="revoke_device">Revoke %1$s</string>
+  <string name="approval_title">Allow this device?</string>
+  <string name="approval_tip">Compare the code on your phone. Allow this device to send links?</string>
+  <string name="verification_code">Verification code: %1$s</string>
+  <string name="approval_expires">Request expires in %1$d seconds</string>
+  <string name="deny">Deny</string>
+  <string name="allow">Allow</string>
+  <string name="port_label">Receiver port (1024–65535)</string>
+  <string name="invalid_port">Use a port from 1024 to 65535</string>
+  <string name="storage_failure">Could not save access settings. Please retry.</string>
+  <string name="no_browser">No compatible browser installed</string>
+  <string name="no_browser_help">Install a compatible TV browser or URL handler through your TV’s normal installation process. Return to SendTV and retry.</string>
+  <string name="default_receiver_name">Living Room TV</string>
+  <string name="development_status">Receiver setup in progress</string>
+  <string name="development_explanation">Development build. Pairing and URL handoff are not available yet.</string>
+  <string name="network_status">Network listener disabled</string>
+  <string name="settings">Settings</string>
+  <string name="receiver_name_label">Receiver name</string>
+  <string name="save">Save name</string>
+  <string name="back">Back to home</string>
+  <string name="invalid_name">Use 1–48 characters without surrounding spaces, control characters, or hidden formatting.</string>
+  <string name="privacy">Local HTTP does not encrypt traffic. A malicious device on your Wi-Fi may observe links and credentials. Use a trusted network. Pairing requires approval on this TV.</string>
+  <string name="network_no_address">No private IPv4 Wi-Fi/Ethernet address</string>
+  <string name="network_available">Network available</string>
+  <string name="network_port_error">Cannot listen on this port; check Settings</string>
+  <string name="language">Language</string>
+  <string name="language_system">System language</string>
+</resources>

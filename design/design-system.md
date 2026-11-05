@@ -1,5 +1,7 @@
 # Shared design system
 
+[Русский](../docs/ru/design/design-system.md)
+
 Brand: SendTV (working name). Personality: practical, calm, crisp, device-focused. Visual metaphor: one clean blue path between screens, not a cluttered Wi-Fi icon field.
 
 ## Colors

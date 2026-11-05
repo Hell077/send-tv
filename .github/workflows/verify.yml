@@ -1,0 +1,81 @@
+name: Verify V1 foundation
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: node --test scripts/check-lockfile.test.mjs
+      - run: node scripts/check-lockfile.mjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install compile SDK
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Format, unit and resource integration tests, lint, APK
+        run: ./gradlew ktlintCheck :tv:testDebugUnitTest :tv:lintDebug :tv:assembleDebug --console=plain
+      - name: Install browser test engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Sender browser flows against actual receiver HTTP
+        run: npm run test:browser
+      - name: Static site browser and accessibility checks
+        run: |
+          npm run build:site
+          npm run test:site:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-reports
+          path: tv/build/reports/
+  protocol:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: node --test scripts/check-lockfile.test.mjs
+      - run: node scripts/check-lockfile.mjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run check:protocol
+      - run: npm run typecheck
+      - run: npm run lint:web
+      - run: npm run format:web
+      - run: npm run build:sender
+      - run: npm run format:site
+      - run: npm run check:site
+      - run: npm run build:site
+      - run: npm run test:site
+      - run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - run: git diff --check
+  commits:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate Conventional Commits
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python3 scripts/check_commits.py "$BASE_SHA..$HEAD_SHA"

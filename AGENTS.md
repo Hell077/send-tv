@@ -1,5 +1,7 @@
 # Mandatory instructions for AI coding agents
 
+[Русский](docs/ru/AGENTS.md)
+
 1. Read `README.md` and all referenced V1 specifications before producing code.
 2. Do not implement V2 or V3 work until V1 acceptance tests pass; avoid speculative abstractions.
 3. Make short, reviewable, feature-scoped commits; apply `governance/git.md` and `governance/quality.md`.

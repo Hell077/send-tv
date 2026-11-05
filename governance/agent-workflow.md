@@ -1,5 +1,7 @@
 # Agent delivery protocol
 
+[Русский](../docs/ru/governance/agent-workflow.md)
+
 For every task:
 1. Identify current roadmap version and exact acceptance criterion.
 2. Read architecture constraints and visual spec for affected features.

@@ -1,0 +1,128 @@
+:root {
+    color-scheme: dark;
+    font-family: system-ui, sans-serif;
+    background: #080d19;
+    color: #f8fafc;
+    font-size: 16px;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+main {
+    max-width: 440px;
+    margin: 32px auto;
+    padding: 24px 20px;
+}
+h1 {
+    font-size: 26px;
+    margin: 0 0 12px;
+}
+h2 {
+    font-size: 21px;
+    margin: 0 0 16px;
+}
+p {
+    color: #a8bcd6;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+.device,
+aside {
+    background: #101a2c;
+    border: 1px solid #29405f;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 28px 0;
+}
+.device p {
+    margin-bottom: 0;
+}
+label {
+    display: block;
+    margin: 24px 0 12px;
+    line-height: 1.5;
+}
+select,
+input:not([type="checkbox"]) {
+    font: inherit;
+    width: 100%;
+    border: 1px solid #29405f;
+    border-radius: 12px;
+    color: #f8fafc;
+    background: #17243a;
+    min-height: 60px;
+    padding: 16px;
+}
+button {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 16px;
+    padding: 12px;
+    font: inherit;
+    font-weight: 700;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: #60a5fa;
+    color: #080d19;
+    cursor: pointer;
+}
+button:hover {
+    background: #93c5fd;
+}
+button:active {
+    transform: translateY(1px);
+}
+button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+.secondary {
+    background: #17243a;
+    color: #f8fafc;
+    border-color: #29405f;
+}
+.secondary:hover {
+    background: #29405f;
+}
+:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 4px;
+}
+.check {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+}
+.check input {
+    min-width: 24px;
+    min-height: 24px;
+}
+#error {
+    color: #fb7185;
+}
+#error:empty {
+    display: none;
+}
+footer {
+    border-top: 1px solid #29405f;
+    margin-top: 32px;
+    padding-top: 16px;
+}
+[hidden] {
+    display: none !important;
+}
+@media (max-width: 440px) {
+    main {
+        margin: 0 auto;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    button:active {
+        transform: none;
+    }
+}

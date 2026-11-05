@@ -1,5 +1,7 @@
 # Product requirements
 
+[Русский](../docs/ru/product/requirements.md)
+
 ## Problem
 Sending a URL to a TV is inconvenient: retyping via remote control, incompatible cast protocols, login friction, unreliable screen mirroring. The product is a LAN-first URL handoff tool.
 
@@ -19,6 +21,7 @@ TV app installed -> opens pairing screen -> displays QR containing local receive
 - Opening uses Android `ACTION_VIEW` with suitable browser/handler; show instructions for installing compatible browser if absent.
 - On send failure, show specific error and retry, not fabricated success.
 - Support Android TV remote / D-pad navigation for TV UI.
+- Support English and Russian; language changes do not alter authorization, device names or URL input.
 - Keep sender UI responsive from 320px to desktop size.
 
 ## Non-functional requirements

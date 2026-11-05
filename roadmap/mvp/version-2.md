@@ -1,5 +1,7 @@
 # MVP V2 — Discovery, multiple devices, CLI
 
+[Русский](../../docs/ru/roadmap/mvp/version-2.md)
+
 ## Dependencies
 V1 signed off with security and end-to-end tests. API capabilities stable.
 

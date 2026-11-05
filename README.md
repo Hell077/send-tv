@@ -1,6 +1,14 @@
 # SendTV — implementation blueprint
 
-An offline-first, local-network protocol and product for sending URLs from phones, tablets, browsers, and computers to a television. **Specifications, not implemented code.**
+[Русский](docs/ru/README.md)
+
+An offline-first, local-network protocol and product for sending URLs from phones, tablets, browsers, and computers to a television. **V1 is implemented for development verification; it is not a verified public release.**
+
+## Development status
+
+The native Kotlin receiver now includes explicit start/stop, LAN binding, expiring QR challenges, TV approval, token-hash persistence and revocation, authenticated HTTP URL handoff and operation status, plus a bundled TypeScript sender. Automated security, socket, Android resource/intent and Chromium/WebKit sender tests are present. Controlled physical TV/browser flows have been verified; the remaining browser/network matrix and public site deployment remain open; no V2/V3 work has started.
+
+Build instructions, verification evidence, and remaining work: [V1 development](docs/development-v1.md). The `.pen` references have been [inspected through Pencil MCP](design/validation/README.md); runtime captures and their limits are recorded in [V1 verification](docs/verification-v1.md). Do not publish the experimental build as a verified V1 release.
 
 ## Agent entry point
 1. Read `AGENTS.md` and `governance/git.md`.
@@ -27,4 +35,4 @@ An offline-first, local-network protocol and product for sending URLs from phone
 ## Implementation sequence
 V1: URL -> TV; V2: discovery, multi-device, CLI; V3: viewing files + remote control; V4+: alternative TV OS + optional casting.
 
-Documentation language: English for repository artifacts; UI copy: English. This specification was prepared on 2026-11-04.
+Documentation: English originals with [Russian engineering translations](docs/ru/README.md). App UI: English and Russian; see [language selection](docs/localization.md). This specification was prepared on 2026-11-04.

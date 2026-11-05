@@ -1,0 +1,165 @@
+---
+import Base from "../../layouts/Base.astro";
+import { href as baseHref } from "../../lib/navigation";
+const href = (path: string) => baseHref(`ru/${path}`);
+---
+
+<Base title="Ссылка на телефоне. Страница на телевизоре.">
+    <main id="main" tabindex="-1">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="eyebrow">ССЫЛКИ НА ТВ ПО ЛОКАЛЬНОЙ СЕТИ</p>
+                <h1 id="hero-title">
+                    Ссылка на телефоне.
+                    <br />
+                    Страница на телевизоре.
+                </h1>
+                <p class="lede">
+                    SendTV создаётся для отправки ссылок прямо на Android TV по
+                    локальной сети. Без аккаунтов и облачного посредника.
+                </p>
+                <p class="release-note">
+                    V1 проходит проверку. Проверенного публичного релиза пока
+                    нет.
+                </p>
+                <div class="actions">
+                    <a class="button" href={href("docs/getting-started/")}>
+                        Начать
+                    </a>
+                    <a
+                        class="button secondary"
+                        href={href("docs/architecture/")}
+                    >
+                        Читать документацию
+                    </a>
+                </div>
+            </div>
+            <figure
+                class="handoff-illustration"
+                role="img"
+                aria-label="Иллюстрация экрана сопряжения ТВ. Условный QR-код нельзя отсканировать; реальное подключение не показано"
+            >
+                <div class="illustration-bar">
+                    ТВ в гостиной <span>Иллюстрация</span>
+                </div>
+                <div class="illustration-screen">
+                    <p>Готов к приёму</p>
+                    <div class="qr-art" aria-hidden="true">
+                        QR
+                    </div>
+                    <small>Пример интерфейса. QR-код не сканируется</small>
+                </div>
+                <figcaption>
+                    Установленный приёмник подключает телефон после разрешения
+                    на ТВ.
+                </figcaption>
+            </figure>
+        </section>
+        <section id="how-it-works" class="section">
+            <p class="eyebrow">ТРИ ШАГА · СЦЕНАРИЙ V1</p>
+            <h2>Одна ссылка. Ваша сеть.</h2>
+            <ol class="steps">
+                <li>
+                    <span>01</span>
+                    <h3>Установите приёмник</h3>
+                    <p>
+                        Нужен Android / Google TV с совместимым браузером или
+                        обработчиком ссылок.
+                    </p>
+                </li>
+                <li>
+                    <span>02</span>
+                    <h3>Отсканируйте и подтвердите</h3>
+                    <p>
+                        Отсканируйте временный QR-код. Сравните код
+                        подтверждения и разрешите устройство на телевизоре.
+                    </p>
+                </li>
+                <li>
+                    <span>03</span>
+                    <h3>Откройте ссылку</h3>
+                    <p>
+                        Вставьте HTTP(S)-адрес. Android передаст его
+                        установленному обработчику.
+                    </p>
+                </li>
+            </ol>
+        </section>
+        <section id="features" class="section feature-section">
+            <div>
+                <p class="eyebrow">ТОЛЬКО НЕОБХОДИМОЕ</p>
+                <h2>Владелец управляет доступом.</h2>
+                <p>
+                    Приёмник сам открывает адрес. Телефон не записывает и не
+                    транслирует свой экран. Доступ доверенных устройств можно
+                    отозвать на ТВ.
+                </p>
+                <p>
+                    Работает в локальной сети без облачного посредника. Самому
+                    сайту могут понадобиться Интернет, вход в аккаунт на ТВ,
+                    поддержка DRM или ввод с пульта.
+                </p>
+            </div>
+            <div class="compatibility">
+                <h3>Что поддерживается?</h3>
+                <dl>
+                    <div>
+                        <dt>Android / Google TV</dt>
+                        <dd>Реализация V1 проходит проверку</dd>
+                    </div>
+                    <div>
+                        <dt>CLI и поиск устройств</dt>
+                        <dd>Планируется в V2</dd>
+                    </div>
+                    <div>
+                        <dt>Tizen / webOS</dt>
+                        <dd>Не поддерживается в V1</dd>
+                    </div>
+                    <div>
+                        <dt>Трансляция экрана и передача файлов</dt>
+                        <dd>Не входит в V1</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+        <section class="privacy-callout section">
+            <p class="eyebrow">КОНФИДЕНЦИАЛЬНОСТЬ БЕЗ ЛОЖНЫХ ОБЕЩАНИЙ</p>
+            <h2>Локальная сеть не означает шифрование.</h2>
+            <p>
+                V1 использует локальный HTTP. Злоумышленники в сети могут
+                увидеть ссылки и данные доступа. Используйте доверенную сеть,
+                подтверждайте каждое новое устройство на ТВ и не отправляйте
+                конфиденциальные ссылки через недоверенный Wi-Fi.
+            </p>
+            <a href={href("docs/architecture/")}>Архитектура и ограничения</a>
+        </section>
+        <section class="section faq-preview">
+            <h2>Перед подключением</h2>
+            <details>
+                <summary>Работает на любом Smart TV?</summary>
+                <p>
+                    Нет. V1 требует установленный приёмник SendTV на Android /
+                    Google TV и совместимый обработчик ссылок.
+                </p>
+            </details>
+            <details>
+                <summary>Можно открыть любой сайт?</summary>
+                <p>
+                    Нет. Сайтам могут понадобиться cookies, Widevine, вход в
+                    аккаунт, определённый браузер или ввод, неудобный с
+                    ТВ-пульта.
+                </p>
+            </details>
+            <details>
+                <summary>Это кастинг или трансляция экрана?</summary>
+                <p>
+                    Нет. SendTV передаёт телевизору адрес. Кастинг, передача
+                    файлов и удалённое управление не входят в V1.
+                </p>
+            </details>
+            <a class="button secondary" href={href("docs/faq/")}>
+                Читать ответы на вопросы
+            </a>
+        </section>
+    </main>
+</Base>

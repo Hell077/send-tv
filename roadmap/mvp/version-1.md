@@ -1,5 +1,7 @@
 # MVP V1 — Pair and open a URL
 
+[Русский](../../docs/ru/roadmap/mvp/version-1.md)
+
 ## Objective
 From phone browser scan QR on Android TV, approve first device on television, paste URL, and reliably hand it off to installed TV browser.
 
@@ -14,15 +16,18 @@ From phone browser scan QR on Android TV, approve first device on television, pa
 8. Documentation: install APK, network requirements, permissions, browser behavior, troubleshooting, screenshots.
 
 ## Acceptance criteria
-- [ ] Android TV receiver installable on supported Android API floor selected and documented after testing.
-- [ ] TV UI D-pad navigable; QR shows a short-lived challenge URL.
-- [ ] New sender pairs only after TV-side approval; expired/reused challenges fail.
-- [ ] A valid HTTPS URL opens through compatible installed handler.
-- [ ] Unsupported scheme, malformed URL and missing browser show clear errors.
-- [ ] Revoke sender immediately disables future commands.
-- [ ] Auth + pairing negative tests pass; no logging of full URL secrets.
+- [x] Android TV receiver installable on supported Android API floor selected and documented after testing.
+- [x] TV UI D-pad navigable; QR shows a short-lived challenge URL.
+- [x] New sender pairs only after TV-side approval; expired/reused challenges fail.
+- [x] A valid HTTPS URL opens through compatible installed handler.
+- [x] Unsupported scheme, malformed URL and missing browser show clear errors.
+- [x] Revoke sender immediately disables future commands.
+- [x] Auth + pairing negative tests pass; no logging of full URL secrets.
 - [ ] Sender works on mobile Safari/Chrome and desktop current browsers where LAN fetch is permitted.
 - [ ] Site has public GitHub Pages landing and getting started docs; no live TV connection required on website.
+
+
+Evidence: [V1 verification record](../../docs/verification-v1.md). Missing-browser behavior is verified by controlled Android/browser tests; physical iOS/Windows and offline/guest-isolation coverage remain open. Checked criteria do not mean the complete V1 acceptance matrix has passed.
 
 ## Test matrix
 Android TV emulator plus at least one real device; Chrome Android, Safari iOS, Chrome macOS/Windows; same Wi-Fi, no Internet, phone on isolated guest network, first pairing, re-pair, revoked device, browser absent, URL with credentials, QR expired, app process restart. Note physical testing that was not performed.

@@ -1,5 +1,7 @@
 # Landing page design specification
 
+[Русский](../../docs/ru/design/website/design.md)
+
 Source: `website.pen` (editable Pencil frames for desktop landing + mobile). Design system: `../design-system.md`.
 
 ## Desktop 1440x900

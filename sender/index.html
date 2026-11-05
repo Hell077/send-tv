@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="referrer" content="no-referrer" />
+        <title>SendTV — local sender</title>
+        <link rel="stylesheet" href="/app.css" />
+        <script src="/app.js" defer></script>
+    </head>
+    <body>
+        <main>
+            <header>
+                <h1>SendTV</h1>
+                <label for="language">Language</label>
+                <select id="language">
+                    <option value="en" lang="en">English</option>
+                    <option value="ru" lang="ru">Русский</option>
+                </select>
+                <p>Send a link to your TV</p>
+            </header>
+            <section class="device" aria-label="Selected receiver">
+                <h2 id="receiver">Your TV</h2>
+                <p id="status" role="status" aria-live="polite">Connecting…</p>
+            </section>
+            <p id="error" role="alert"></p>
+            <section id="pairing">
+                <h2>Connect this device</h2>
+                <p>
+                    Pair only with a TV you recognise. Compare the verification
+                    code and approve on the TV.
+                </p>
+                <form id="pair-form">
+                    <label for="name">This device’s name</label
+                    ><input
+                        id="name"
+                        value="My phone"
+                        maxlength="48"
+                        required
+                        autocomplete="off"
+                    />
+                    <label class="check"
+                        ><input id="remember" type="checkbox" /> Remember this
+                        browser on this trusted network</label
+                    >
+                    <button id="pair" type="submit">Request TV approval</button>
+                </form>
+            </section>
+            <section id="pending" hidden>
+                <h2>Approve on your TV</h2>
+                <p id="verification"></p>
+                <p>This request expires within 60 seconds.</p>
+                <button id="cancel" type="button" class="secondary">
+                    Cancel
+                </button>
+            </section>
+            <section id="sender" hidden>
+                <form id="send-form">
+                    <label for="url">Website address</label
+                    ><input
+                        id="url"
+                        type="text"
+                        inputmode="url"
+                        placeholder="https://example.com"
+                        maxlength="4096"
+                        required
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                    />
+                    <button id="paste" type="button" class="secondary">
+                        Paste</button
+                    ><button id="send" type="submit">Open on TV</button>
+                </form>
+                <aside>
+                    <h2>A simple handoff</h2>
+                    <p>
+                        The TV opens the link itself. Some sites need login, a
+                        compatible browser, or remote input.
+                    </p>
+                </aside>
+                <button id="forget" type="button" class="secondary">
+                    Forget this browser
+                </button>
+            </section>
+            <footer>
+                <p>
+                    Local HTTP does not encrypt links or credentials. Use a
+                    trusted network. New devices always need TV approval.
+                </p>
+                <button id="retry" type="button" class="secondary">
+                    Reconnect
+                </button>
+            </footer>
+        </main>
+    </body>
+</html>
