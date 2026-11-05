@@ -3,6 +3,8 @@ package org.sendtv.receiver
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +19,7 @@ import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import java.lang.ref.WeakReference
+import java.util.Locale
 
 class ReceiverActivity : Activity() {
     private val prefs by lazy { getSharedPreferences("receiver", MODE_PRIVATE) }
@@ -34,6 +37,19 @@ class ReceiverActivity : Activity() {
                 main.postDelayed(this, 1000)
             }
         }
+
+    override fun attachBaseContext(base: Context) {
+        val language = base.getSharedPreferences("receiver", MODE_PRIVATE).getString("language", "")
+        val localized =
+            if (language in listOf("en", "ru")) {
+                val config = Configuration(base.resources.configuration)
+                config.setLocale(Locale.forLanguageTag(language!!))
+                base.createConfigurationContext(config)
+            } else {
+                base
+            }
+        super.attachBaseContext(localized)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +102,7 @@ class ReceiverActivity : Activity() {
     private fun updateHome() {
         if (!home) return
         label(R.id.receiver_name, prefs.getString("name", getString(R.string.default_receiver_name))!!)
-        label(R.id.network_state, receiver.networkMessage)
+        label(R.id.network_state, getString(receiver.networkMessageId))
         val address = receiver.address.takeIf { receiver.isEnabled() }
         label(R.id.toggle_server, getString(if (receiver.isEnabled()) R.string.stop_receiver else R.string.start_receiver))
         label(R.id.home_title, getString(if (address == null) R.string.receiver_stopped else R.string.ready))
@@ -183,6 +199,19 @@ class ReceiverActivity : Activity() {
     private fun showSettings() {
         home = false
         setContentView(R.layout.receiver_settings)
+        findViewById<Button>(R.id.language).setOnClickListener {
+            val options = arrayOf(getString(R.string.language_system), "English", "Русский")
+            val codes = listOf("", "en", "ru")
+            AlertDialog
+                .Builder(this)
+                .setTitle(R.string.language)
+                .setSingleChoiceItems(options, codes.indexOf(prefs.getString("language", "")).coerceAtLeast(0)) { dialog, which ->
+                    prefs.edit().putString("language", codes[which]).apply()
+                    dialog.dismiss()
+                    recreate()
+                }.setNegativeButton(R.string.back, null)
+                .show()
+        }
         val name = findViewById<EditText>(R.id.name_input)
         val port = findViewById<EditText>(R.id.port_input)
         name.setText(prefs.getString("name", getString(R.string.default_receiver_name)))

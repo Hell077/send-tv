@@ -33,4 +33,9 @@
   <string name="back">Back to home</string>
   <string name="invalid_name">Use 1–48 characters without surrounding spaces, control characters, or hidden formatting.</string>
   <string name="privacy">Local HTTP does not encrypt traffic. A malicious device on your Wi-Fi may observe links and credentials. Use a trusted network. Pairing requires approval on this TV.</string>
+  <string name="network_no_address">No private IPv4 Wi-Fi/Ethernet address</string>
+  <string name="network_available">Network available</string>
+  <string name="network_port_error">Cannot listen on this port; check Settings</string>
+  <string name="language">Language</string>
+  <string name="language_system">System language</string>
 </resources>

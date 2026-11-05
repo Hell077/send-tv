@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SendTV</string>
+  <string name="receiver_stopped">Приёмник остановлен</string>
+  <string name="start_instructions">Запустите приёмник в доверенной домашней сети</string>
+  <string name="ready">Готов к приёму</string>
+  <string name="scan_instructions">Отсканируйте код телефоном и подтвердите подключение на этом ТВ.</string>
+  <string name="qr_description">Временный QR-код сопряжения. Отсканируйте камерой телефона.</string>
+  <string name="start_receiver">Запустить приёмник</string>
+  <string name="stop_receiver">Остановить приёмник</string>
+  <string name="devices">Устройства</string>
+  <string name="no_devices">Доверенных устройств пока нет</string>
+  <string name="revoke_all">Отозвать доступ у всех</string>
+  <string name="revoke_device">Отозвать доступ: %1$s</string>
+  <string name="approval_title">Разрешить этому устройству?</string>
+  <string name="approval_tip">Сравните код на телефоне. Разрешить устройству отправлять ссылки?</string>
+  <string name="verification_code">Код подтверждения: %1$s</string>
+  <string name="approval_expires">Запрос истекает через %1$d сек.</string>
+  <string name="deny">Отклонить</string>
+  <string name="allow">Разрешить</string>
+  <string name="port_label">Порт приёмника (1024–65535)</string>
+  <string name="invalid_port">Укажите порт от 1024 до 65535</string>
+  <string name="storage_failure">Не удалось сохранить настройки доступа. Повторите попытку.</string>
+  <string name="no_browser">Совместимый браузер не установлен</string>
+  <string name="no_browser_help">Установите совместимый ТВ-браузер или обработчик ссылок обычным способом для вашего ТВ. Вернитесь в SendTV и повторите попытку.</string>
+  <string name="default_receiver_name">ТВ в гостиной</string>
+  <string name="development_status">Настройка приёмника</string>
+  <string name="development_explanation">Сборка для разработки. Сопряжение и передача ссылок пока недоступны.</string>
+  <string name="network_status">Сетевой сервер отключён</string>
+  <string name="settings">Настройки</string>
+  <string name="receiver_name_label">Имя приёмника</string>
+  <string name="save">Сохранить имя</string>
+  <string name="back">На главный экран</string>
+  <string name="invalid_name">Введите от 1 до 48 символов без пробелов по краям, управляющих символов и скрытого форматирования.</string>
+  <string name="privacy">Локальный HTTP не шифрует трафик. Злоумышленник в вашей сети Wi-Fi может увидеть ссылки и данные доступа. Используйте доверенную сеть. Сопряжение требует подтверждения на этом ТВ.</string>
+  <string name="network_no_address">Нет частного IPv4-адреса Wi-Fi/Ethernet</string>
+  <string name="network_available">Сеть доступна</string>
+  <string name="network_port_error">Не удалось открыть порт. Проверьте настройки</string>
+  <string name="language">Язык</string>
+  <string name="language_system">Язык системы</string>
+</resources>

@@ -9,7 +9,8 @@
     <TextView style="@style/TvText" android:text="@string/privacy" />
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
       <Button style="@style/TvButton" android:id="@+id/back_home" android:text="@string/back" android:nextFocusRight="@id/save_name" android:nextFocusUp="@id/port_input" />
-      <Button style="@style/TvButton" android:id="@+id/save_name" android:text="@string/save" android:nextFocusLeft="@id/back_home" android:nextFocusUp="@id/port_input" />
+      <Button style="@style/TvButton" android:id="@+id/save_name" android:text="@string/save" android:nextFocusLeft="@id/back_home" android:nextFocusRight="@id/language" android:nextFocusUp="@id/port_input" />
+      <Button style="@style/TvButton" android:id="@+id/language" android:text="@string/language" android:nextFocusUp="@id/port_input" android:nextFocusLeft="@id/save_name" />
     </LinearLayout>
   </LinearLayout>
 </ScrollView>

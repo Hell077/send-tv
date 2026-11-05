@@ -6,6 +6,9 @@ android {
     namespace = "org.sendtv.receiver"
     compileSdk = 36
 
+    // Keep both languages available offline when using an app bundle.
+    bundle { language { enableSplit = false } }
+
     defaultConfig {
         applicationId = "org.sendtv.receiver"
         // Initial supported floor verified on MiTV-MOOQ1 (Android 11/API 30).

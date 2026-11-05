@@ -37,7 +37,7 @@ class ReceiverApplication : Application() {
     @Volatile var address: String? = null
         private set
 
-    @Volatile var networkMessage: String = "Receiver stopped"
+    @Volatile var networkMessageId: Int = R.string.receiver_stopped
         private set
     var visibleActivity: WeakReference<ReceiverActivity>? = null
     val receiverPort: Int get() = prefs.getInt("port", 8765)
@@ -112,7 +112,7 @@ class ReceiverApplication : Application() {
             server = null
             address = null
             pairing.endSession()
-            networkMessage = if (enabled) "No private IPv4 Wi-Fi/Ethernet address" else "Receiver stopped"
+            networkMessageId = if (enabled) R.string.network_no_address else R.string.receiver_stopped
             if (lan != null && next != null) {
                 try {
                     val nextApi =
@@ -122,9 +122,9 @@ class ReceiverApplication : Application() {
                     server = LanServer(lan, selectedPort, nextApi::handle)
                     api = nextApi
                     address = next
-                    networkMessage = "Network available"
+                    networkMessageId = R.string.network_available
                 } catch (_: Exception) {
-                    networkMessage = "Cannot listen on this port; check Settings"
+                    networkMessageId = R.string.network_port_error
                 }
             }
         }
