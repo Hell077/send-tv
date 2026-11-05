@@ -45,6 +45,7 @@ label {
     margin: 24px 0 12px;
     line-height: 1.5;
 }
+select,
 input:not([type="checkbox"]) {
     font: inherit;
     width: 100%;

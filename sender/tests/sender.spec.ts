@@ -101,3 +101,96 @@ test("paired sender passes automated WCAG AA checks", async ({ page }) => {
         .analyze();
     expect(results.violations).toEqual([]);
 });
+
+test("Russian preference survives reload and language changes preserve pairing and input", async ({
+    browser,
+}) => {
+    const context = await browser.newContext({
+        locale: "ru-RU",
+        viewport: { width: 320, height: 844 },
+    });
+    const page = await context.newPage();
+    try {
+        await scan(page);
+        await expect(page.locator("html")).toHaveAttribute("lang", "ru");
+        await expect(
+            page.getByText("Локальный HTTP не шифрует", { exact: false }),
+        ).toBeVisible();
+        await page.getByLabel("Имя этого устройства").fill("Тестовый телефон");
+        await page
+            .getByRole("button", { name: "Запросить разрешение на ТВ" })
+            .click();
+        await expect(page.getByRole("status")).toHaveText(
+            "Ожидание разрешения на ТВ",
+        );
+        const code = (await page.locator("#verification").innerText()).match(
+            /\d{6}/,
+        )?.[0];
+        expect(code).toBeTruthy();
+        await page.locator("#language").selectOption("en");
+        await expect(page.locator("#verification")).toContainText(
+            `Compare code ${code}`,
+        );
+        await expect(page.locator("#name")).toHaveValue("Тестовый телефон");
+        await page.locator("#language").selectOption("ru");
+        await expect(page.getByRole("status")).toHaveText("Подключено", {
+            timeout: 8000,
+        });
+        await expect(page.locator("#receiver")).toHaveText(
+            "Test Living Room TV",
+        );
+        await page.getByLabel("Адрес сайта").fill("javascript:alert(1)");
+        await page.getByRole("button", { name: "Открыть на ТВ" }).click();
+        await expect(page.getByRole("alert")).toContainText(
+            "Введите корректный HTTP-",
+        );
+        await page.locator("#language").selectOption("en");
+        await expect(page.getByRole("alert")).toContainText(
+            "Enter a valid HTTP or HTTPS URL",
+        );
+        await expect(page.locator("#url")).toHaveValue("javascript:alert(1)");
+        await expect(page.locator("#receiver")).toHaveText(
+            "Test Living Room TV",
+        );
+        await page.locator("#language").selectOption("ru");
+        await page.reload();
+        await expect(page.getByRole("status")).toHaveText("Подключено");
+        expect(
+            await page.evaluate(() => document.documentElement.scrollWidth),
+        ).toBeLessThanOrEqual(320);
+        expect(
+            (
+                await new AxeBuilder({ page })
+                    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+                    .analyze()
+            ).violations,
+        ).toEqual([]);
+    } finally {
+        await context.close();
+    }
+});
+
+test("unsupported browser language and malformed saved preference fall back to English", async ({
+    browser,
+}) => {
+    const context = await browser.newContext({ locale: "ja-JP" });
+    const page = await context.newPage();
+    try {
+        await page.addInitScript(() =>
+            localStorage.setItem("sendtv.language", "unsupported"),
+        );
+        await page.goto("/");
+        await expect(page.locator("html")).toHaveAttribute("lang", "en");
+        await expect(
+            page.getByRole("button", { name: "Request TV approval" }),
+        ).toBeDisabled();
+        await page.locator("#language").selectOption("ru");
+        await page.setViewportSize({ width: 390, height: 844 });
+        await page.screenshot({
+            path: `build/sender-qa/${test.info().project.name}-ru-unpaired.png`,
+            fullPage: true,
+        });
+    } finally {
+        await context.close();
+    }
+});

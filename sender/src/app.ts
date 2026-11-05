@@ -1,3 +1,4 @@
+import { setText } from "./language";
 export {};
 
 type PairTicket = {
@@ -126,7 +127,7 @@ function credentials(value: string | null, persist = false) {
 }
 
 function render(message: string, waiting = false, busy = false) {
-    status.textContent = message;
+    setText(status, message);
     pairingPanel.hidden = !!token || waiting;
     senderPanel.hidden = !token;
     pendingPanel.hidden = !waiting;
@@ -139,10 +140,12 @@ function fail(failure: unknown) {
     if (failure instanceof ApiError && failure.code === "UNAUTHORIZED")
         credentials(null);
     render(token ? "Connected" : "Pairing required");
-    error.textContent =
+    setText(
+        error,
         failure instanceof ApiError
             ? failure.message
-            : "TV unreachable. Check that SendTV is running on the same Wi-Fi or Ethernet network, then retry.";
+            : "TV unreachable. Check that SendTV is running on the same Wi-Fi or Ethernet network, then retry.",
+    );
 }
 
 const wait = () => new Promise<void>((resolve) => setTimeout(resolve, 1000));
@@ -155,7 +158,7 @@ element<HTMLFormElement>("pair-form").addEventListener("submit", (event) => {
     event.preventDefault();
     if (!challenge || pairButton.disabled) return;
     const current = ++generation;
-    error.textContent = "";
+    setText(error, "");
     render("Connecting…", false, true);
     void (async () => {
         try {
@@ -173,8 +176,10 @@ element<HTMLFormElement>("pair-form").addEventListener("submit", (event) => {
                 return;
             }
             ticket = pending;
-            element("verification").textContent =
-                `Compare code ${pending.verificationCode} on the TV.`;
+            setText(
+                element("verification"),
+                `Compare code ${pending.verificationCode} on the TV.`,
+            );
             render("Waiting for TV approval", true, true);
             const expires = Date.now() + pending.expiresIn * 1000;
             while (current === generation && Date.now() < expires) {
@@ -190,8 +195,10 @@ element<HTMLFormElement>("pair-form").addEventListener("submit", (event) => {
                 if (result.status === "denied") {
                     ticket = null;
                     render("Pairing denied");
-                    error.textContent =
-                        "Pairing was denied or cancelled. Scan the current TV QR code to try again.";
+                    setText(
+                        error,
+                        "Pairing was denied or cancelled. Scan the current TV QR code to try again.",
+                    );
                     pairButton.disabled = true;
                     return;
                 }
@@ -223,8 +230,10 @@ element("cancel").addEventListener("click", () => {
             undefined,
             pending.pollToken,
         ).catch(() => {
-            error.textContent =
-                "Cancellation could not reach the TV. The pending request will expire within 60 seconds.";
+            setText(
+                error,
+                "Cancellation could not reach the TV. The pending request will expire within 60 seconds.",
+            );
         });
 });
 
@@ -234,7 +243,7 @@ element<HTMLFormElement>("send-form").addEventListener("submit", (event) => {
     const value = urlInput.value;
     const current = ++generation;
     const credential = token;
-    error.textContent = "";
+    setText(error, "");
     if (!submission || submission.url !== value)
         submission = { url: value, id: requestId() };
     const id = submission.id;
@@ -271,8 +280,10 @@ element<HTMLFormElement>("send-form").addEventListener("submit", (event) => {
             }
             if (current === generation) {
                 render("Handoff status timed out");
-                error.textContent =
-                    "The TV may have opened the link. Retry rechecks it within the same receiver session for five minutes. After a restart, check the TV before retrying.";
+                setText(
+                    error,
+                    "The TV may have opened the link. Retry rechecks it within the same receiver session for five minutes. After a restart, check the TV before retrying.",
+                );
             }
         } catch (failure) {
             if (current === generation) fail(failure);
@@ -295,12 +306,16 @@ element("paste").addEventListener("click", () => {
             urlInput.value = value;
         })
         .catch(() => {
-            error.textContent =
-                "Clipboard access is unavailable on local HTTP. Use your browser’s Paste command.";
+            setText(
+                error,
+                "Clipboard access is unavailable on local HTTP. Use your browser’s Paste command.",
+            );
         });
     if (!navigator.clipboard)
-        error.textContent =
-            "Use your browser’s Paste command in the website address field.";
+        setText(
+            error,
+            "Use your browser’s Paste command in the website address field.",
+        );
 });
 element("retry").addEventListener("click", () => {
     void connect();
@@ -308,7 +323,7 @@ element("retry").addEventListener("click", () => {
 
 async function connect() {
     const current = ++generation;
-    error.textContent = "";
+    setText(error, "");
     render("Connecting…", false, true);
     try {
         const info = await api<{
