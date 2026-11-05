@@ -1,14 +1,23 @@
 ---
 import "../styles/site.css";
-import { href } from "../lib/navigation";
+import { href as baseHref } from "../lib/navigation";
 interface Props {
     title: string;
     description?: string;
 }
-const {
-    title,
-    description = "SendTV: a local-network URL handoff project for Android TV. V1 is under verification; no accounts or cloud relay.",
-} = Astro.props;
+const { title, description: suppliedDescription } = Astro.props;
+const ru = Astro.url.pathname.startsWith(`${import.meta.env.BASE_URL}ru/`);
+const description =
+    suppliedDescription ??
+    (ru
+        ? "SendTV: отправка ссылок на Android TV по локальной сети. V1 проходит проверку; без аккаунтов и облачного посредника."
+        : "SendTV: a local-network URL handoff project for Android TV. V1 is under verification; no accounts or cloud relay.");
+const t = (en: string, russian: string) => (ru ? russian : en);
+const href = (path: string) => baseHref(`${ru ? "ru/" : ""}${path}`);
+const routePath = Astro.url.pathname
+    .slice(import.meta.env.BASE_URL.length)
+    .replace(/^ru\//, "");
+const currentPath = /^404(?:[/.]|$)/.test(routePath) ? "" : routePath;
 const canonical = Astro.site
     ? new URL(Astro.url.pathname, Astro.site).href
     : undefined;
@@ -16,7 +25,7 @@ const github = __GITHUB_URL__;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={ru ? "ru" : "en"}>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,24 +41,60 @@ const github = __GITHUB_URL__;
     </head>
     <body>
         <a class="skip" href="#main">
-            Skip to content
+            {t("Skip to content", "Перейти к содержанию")}
         </a>
         <header class="site-header">
             <a class="wordmark" href={href("")}>
                 SendTV
             </a>
-            <nav class="desktop-nav" aria-label="Primary">
-                <a href={href("#features")}>Features</a>
-                <a href={href("#how-it-works")}>How it works</a>
-                <a href={href("docs/getting-started/")}>Docs</a>
+            <nav class="language-nav" aria-label={t("Language", "Язык")}>
+                <a
+                    href={baseHref(currentPath)}
+                    lang="en"
+                    hreflang="en"
+                    aria-current={!ru ? "page" : undefined}
+                >
+                    English
+                </a>
+                <a
+                    href={baseHref(`ru/${currentPath}`)}
+                    lang="ru"
+                    hreflang="ru"
+                    aria-current={ru ? "page" : undefined}
+                >
+                    Русский
+                </a>
+            </nav>
+            <nav
+                class="desktop-nav"
+                aria-label={t("Primary", "Основная навигация")}
+            >
+                <a href={href("#features")}>{t("Features", "Возможности")}</a>
+                <a href={href("#how-it-works")}>
+                    {t("How it works", "Как это работает")}
+                </a>
+                <a href={href("docs/getting-started/")}>
+                    {t("Docs", "Документация")}
+                </a>
                 {github && <a href={github}>GitHub ↗</a>}
             </nav>
             <details class="mobile-nav">
-                <summary>Menu</summary>
-                <nav aria-label="Mobile primary">
-                    <a href={href("#features")}>Features</a>
-                    <a href={href("#how-it-works")}>How it works</a>
-                    <a href={href("docs/getting-started/")}>Docs</a>
+                <summary>{t("Menu", "Меню")}</summary>
+                <nav
+                    aria-label={t(
+                        "Mobile primary",
+                        "Основная навигация на телефоне",
+                    )}
+                >
+                    <a href={href("#features")}>
+                        {t("Features", "Возможности")}
+                    </a>
+                    <a href={href("#how-it-works")}>
+                        {t("How it works", "Как это работает")}
+                    </a>
+                    <a href={href("docs/getting-started/")}>
+                        {t("Docs", "Документация")}
+                    </a>
                     {github && <a href={github}>GitHub ↗</a>}
                 </nav>
             </details>
@@ -57,16 +102,25 @@ const github = __GITHUB_URL__;
         <slot />
         <footer class="site-footer">
             <p>
-                Android / Google TV first. An installed receiver and compatible
-                URL handler are required.
+                {t(
+                    "Android / Google TV first. An installed receiver and compatible URL handler are required.",
+                    "В первую очередь Android / Google TV. Нужны установленный приёмник и совместимый обработчик ссылок.",
+                )}
             </p>
-            <nav aria-label="Footer">
-                <a href={href("privacy/")}>Privacy</a>
-                <a href={href("changelog/")}>Changelog</a>
-                <a href={href("docs/faq/")}>FAQ</a>
+            <nav aria-label={t("Footer", "Нижняя навигация")}>
+                <a href={href("privacy/")}>
+                    {t("Privacy", "Конфиденциальность")}
+                </a>
+                <a href={href("changelog/")}>
+                    {t("Changelog", "История изменений")}
+                </a>
+                <a href={href("docs/faq/")}>{t("FAQ", "Вопросы и ответы")}</a>
             </nav>
             <p class="muted">
-                V1 development preview. No verified public APK release yet.
+                {t(
+                    "V1 development preview. No verified public APK release yet.",
+                    "Предварительная V1. Проверенного публичного APK-релиза пока нет.",
+                )}
             </p>
         </footer>
     </body>

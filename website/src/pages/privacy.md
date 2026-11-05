@@ -8,6 +8,8 @@ The app has no remote telemetry, ads, mandatory account, or cloud relay. Links a
 
 The receiver stores a local display name, stable random device identity and trusted-device token hashes. Operation records are held in memory for up to five minutes, with a digest rather than the full URL. Pending token delivery expires with the pairing request. App backup/transfer exclusions are configured.
 
+Language preference is stored separately from authorization and does not grant access.
+
 The browser keeps credentials for its tab session by default. Choosing “Remember this browser” stores the bearer token in browser local storage for that receiver. This is not hardware-backed or encrypted storage. Forgetting the browser's token does not revoke other copies; revoke access on the TV.
 
 **The LAN HTTP channel is not encrypted.** Malicious network observers can inspect links and credentials. Use trusted networks and avoid sensitive URLs on untrusted Wi-Fi. No universal browser or TV compatibility is promised.

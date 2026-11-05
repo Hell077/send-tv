@@ -421,3 +421,26 @@ td {
     color: #a8bcd6;
     font-size: 0.875rem;
 }
+
+.language-nav {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.language-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+.language-nav [aria-current="page"] {
+    color: #f8fafc;
+    text-decoration-thickness: 3px;
+}
+@media (max-width: 600px) {
+    .site-header {
+        flex-wrap: wrap;
+    }
+    .language-nav {
+        font-size: 0.875rem;
+    }
+}

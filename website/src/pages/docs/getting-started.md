@@ -47,6 +47,8 @@ ADB is used here only to install and inspect a development build. The product's 
 3. Enter a device name. Optionally choose **Remember this browser** only on a trusted device/network. Otherwise the credential stays within the browser tab session.
 4. Choose **Request TV approval**. Compare the verification code on both screens, then explicitly choose **Allow** on the TV. The default focus is Deny.
 
+TV Settings offers system language, English and Russian. The sender initially follows the browser’s language and has an English/Russian selector. Changing language does not approve a pairing request or translate device names and entered links.
+
 HTTP does not encrypt challenges, bearer tokens, or links. A malicious LAN observer may steal them. Use trusted networks and avoid sensitive links on shared/untrusted Wi-Fi.
 
 ## Send

@@ -1,6 +1,6 @@
 ---
 import Base from "./Base.astro";
-import { guides, href } from "../lib/navigation";
+import { guides, href as baseHref } from "../lib/navigation";
 interface Props {
     frontmatter: {
         title: string;
@@ -9,21 +9,34 @@ interface Props {
     };
 }
 const { frontmatter } = Astro.props;
+const ru = Astro.url.pathname.startsWith(`${import.meta.env.BASE_URL}ru/`);
+const t = (en: string, russian: string) => (ru ? russian : en);
+const href = (path: string) => baseHref(`${ru ? "ru/" : ""}${path}`);
+const labels = [
+    "Начало работы",
+    "Устранение неполадок",
+    "Архитектура и конфиденциальность",
+    "API приёмника",
+    "Вопросы и ответы",
+    "CLI: планируется в V2",
+];
 ---
 
 <Base title={frontmatter.title} description={frontmatter.description}>
     <div class="docs-shell">
         <aside class="docs-nav">
             <details open>
-                <summary>Documentation</summary>
-                <label for="guide-search">Find a guide</label>
+                <summary>{t("Documentation", "Документация")}</summary>
+                <label for="guide-search">
+                    {t("Find a guide", "Найти руководство")}
+                </label>
                 <input
                     id="guide-search"
                     type="search"
-                    placeholder="Filter guides"
+                    placeholder={t("Filter guides", "Фильтр руководств")}
                 />
-                <nav aria-label="Documentation">
-                    {guides.map(([slug, label]) => (
+                <nav aria-label={t("Documentation", "Документация")}>
+                    {guides.map(([slug, label], index) => (
                         <a
                             data-doc-link
                             href={href(`docs/${slug}/`)}
@@ -33,24 +46,29 @@ const { frontmatter } = Astro.props;
                                     : undefined
                             }
                         >
-                            {label}
+                            {ru ? labels[index] : label}
                         </a>
                     ))}
                 </nav>
             </details>
         </aside>
         <main id="main" class="prose" tabindex="-1">
-            <p class="eyebrow">V1 · DEVELOPMENT PREVIEW</p>
+            <p class="eyebrow">
+                {t("V1 · DEVELOPMENT PREVIEW", "V1 · ПРЕДВАРИТЕЛЬНАЯ ВЕРСИЯ")}
+            </p>
             <h1>{frontmatter.title}</h1>
             <p class="muted">
-                Last updated <time datetime="2026-11-04">4 November 2026</time>
+                {t("Last updated", "Обновлено")}{" "}
+                <time datetime="2026-11-05">
+                    {t("5 November 2026", "5 ноября 2026")}
+                </time>
             </p>
             <slot />
         </main>
         {frontmatter.toc && (
             <aside class="page-toc">
-                <nav aria-label="On this page">
-                    <strong>On this page</strong>
+                <nav aria-label={t("On this page", "На этой странице")}>
+                    <strong>{t("On this page", "На этой странице")}</strong>
                     {frontmatter.toc.map(({ id, label }) => (
                         <a href={`#${id}`}>{label}</a>
                     ))}
@@ -69,18 +87,21 @@ const { frontmatter } = Astro.props;
                 link.hidden = !link.textContent?.toLowerCase().includes(query);
             });
     });
+    const ru = document.documentElement.lang === "ru";
     document.querySelectorAll("pre").forEach((pre) => {
         const button = document.createElement("button");
-        button.textContent = "Copy code";
+        button.textContent = ru ? "Копировать код" : "Copy code";
         button.type = "button";
         button.addEventListener("click", () => {
             void navigator.clipboard
                 .writeText(pre.querySelector("code")?.textContent ?? "")
                 .then(() => {
-                    button.textContent = "Copied";
+                    button.textContent = ru ? "Скопировано" : "Copied";
                 })
                 .catch(() => {
-                    button.textContent = "Select code to copy";
+                    button.textContent = ru
+                        ? "Выделите код для копирования"
+                        : "Select code to copy";
                 });
         });
         pre.after(button);

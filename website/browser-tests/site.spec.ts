@@ -74,3 +74,52 @@ test("landing and guides pass automated WCAG AA checks", async ({ page }) => {
         expect(results.violations).toEqual([]);
     }
 });
+
+test("Russian routes preserve guide identity, security copy, navigation and mobile layout", async ({
+    page,
+}) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("./docs/getting-started/");
+    await page.getByRole("link", { name: "Русский", exact: true }).click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "ru");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+        "Начало работы",
+    );
+    await expect(
+        page.getByText("HTTP не шифрует коды", { exact: false }),
+    ).toBeVisible();
+    await expect(
+        page.getByRole("button", { name: "Копировать код" }).first(),
+    ).toBeVisible();
+    await page.getByLabel("Найти руководство").fill("неполадок");
+    await page
+        .getByRole("navigation", { name: "Документация", exact: true })
+        .getByRole("link", { name: "Устранение неполадок" })
+        .click();
+    await expect(
+        page.getByRole("heading", { name: "Приёмник недоступен", exact: true }),
+    ).toBeVisible();
+    await page.getByRole("link", { name: "English", exact: true }).click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+        "Troubleshooting",
+    );
+    await page.goto("./ru/");
+    await expect(page.locator("html")).toHaveAttribute("lang", "ru");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+        "Ссылка на телефоне.Страница на телевизоре.",
+    );
+    expect(
+        await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(390);
+    expect(
+        (
+            await new AxeBuilder({ page })
+                .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+                .analyze()
+        ).violations,
+    ).toEqual([]);
+    await page.screenshot({
+        path: `build/site-qa/${test.info().project.name}-ru-390.png`,
+        fullPage: true,
+    });
+});

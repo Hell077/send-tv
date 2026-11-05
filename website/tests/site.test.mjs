@@ -22,7 +22,7 @@ it("builds real static guides with valid internal links and assets under the pro
     expect(files.length).toBeGreaterThanOrEqual(10);
     for (const file of files) {
         const html = await readFile(file, "utf8");
-        expect(html).toContain('lang="en"');
+        expect(html).toContain(file.includes("/ru/") ? 'lang="ru"' : 'lang="en"');
         expect(html).toContain('<meta name="description"');
         expect(html).toContain('id="main"');
         const current = new URL(

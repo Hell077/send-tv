@@ -27,3 +27,7 @@ No. A malicious LAN observer can see links and credentials. Explicit TV approval
 ## Is there an APK release or CLI?
 
 No verified public APK release is available yet. Developer build instructions are in [getting started](../getting-started/). CLI and native discovery are [planned for V2](../cli/); they are not implemented in V1.
+
+## How do I choose a language?
+
+TV Settings offers system language, English and Russian. The sender initially follows the browser and provides a two-language selector. English/Русский links on the public site open the corresponding page. Device names and entered links are preserved.
