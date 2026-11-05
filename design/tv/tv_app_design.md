@@ -1,5 +1,7 @@
 # TV receiver app visual and interaction specification
 
+[Русский](../../docs/ru/design/tv/tv_app_design.md)
+
 Source: `tv_app_design.pen` (1920x1080 receiver home and approval state). Shared colors: `../design-system.md`.
 
 ## Screen geometry

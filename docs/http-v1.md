@@ -1,5 +1,7 @@
 # V1 receiver HTTP boundary
 
+[Русский](ru/docs/http-v1.md)
+
 The receiver binds one explicitly selected private IPv4 address and configurable unprivileged port. Wildcard/public addresses are rejected; loopback is allowed only for local tests. The Android adapter must select only Wi-Fi/Ethernet link addresses and stop/rebind on network loss or address changes. No discovery, UPnP, arbitrary URL fetches, or proxy forwarding exists.
 
 The small embedded server implements a constrained HTTP/1.1 subset instead of a general application server: 4 workers, at most 8 queued connections, 8 KiB headers, 16 KiB request bodies, read timeouts/deadlines, fixed Content-Length, and one request per connection. It rejects duplicate headers, chunked bodies, absolute request targets, path traversal, malformed UTF-8, unsupported methods, and incomplete bodies before routing. Static assets are an exact allowlist. This limits dependencies and auditable behavior; it is not a claim of general-purpose HTTP compatibility or external security certification.

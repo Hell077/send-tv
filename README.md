@@ -1,5 +1,7 @@
 # SendTV — implementation blueprint
 
+[Русский](docs/ru/README.md)
+
 An offline-first, local-network protocol and product for sending URLs from phones, tablets, browsers, and computers to a television. **V1 is implemented for development verification; it is not a verified public release.**
 
 ## Development status
@@ -33,4 +35,4 @@ Build instructions, verification evidence, and remaining work: [V1 development](
 ## Implementation sequence
 V1: URL -> TV; V2: discovery, multi-device, CLI; V3: viewing files + remote control; V4+: alternative TV OS + optional casting.
 
-Documentation language: English for repository artifacts; UI copy: English. This specification was prepared on 2026-11-04.
+Documentation: English originals with [Russian engineering translations](docs/ru/README.md). App UI: English and Russian; see [language selection](docs/localization.md). This specification was prepared on 2026-11-04.

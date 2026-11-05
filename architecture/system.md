@@ -1,5 +1,7 @@
 # System architecture
 
+[Русский](../docs/ru/architecture/system.md)
+
 ```mermaid
 flowchart LR
  A[Phone/Tablet Browser] -->|QR -> local HTTP UI| B[Android TV Receiver]

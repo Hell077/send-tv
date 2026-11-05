@@ -1,5 +1,7 @@
 # V1 verification record
 
+[Русский](ru/docs/verification-v1.md)
+
 Development checks on 2026-11-04; this is not a release certification. Core physical flows used commit `9a68c2f`; the subsequent API-30-minimum candidate installed successfully and displayed a live QR on the same TV.
 
 | Environment | Observed result |
@@ -22,3 +24,9 @@ Missing-browser behavior is covered by controlled Android tests and browser fixt
 HTTP LAN traffic exposes links and credentials to malicious network observers. Pairing requires TV confirmation; this does not encrypt transport. Successful Android intent dispatch does not generally prove page loading or compatibility.
 
 Local final-candidate checks: 37 JVM/resource/socket tests; 12 sender browser checks; 10 site browser checks on each local-root and configured project-base build; three site unit/build checks; Kotlin formatting, Android lint (0 errors, 13 unsuppressed warnings), TypeScript, ESLint, Prettier, OpenAPI, lockfile and guardrail checks passed.
+
+## English/Russian increment, 2026-11-05
+
+43 JVM/resource/socket test cases passed on the configured API 30/34 matrix, including Russian resources, English override, unsupported stored language and D-pad reachability. All 16 sender browser checks and 12 site browser checks passed in Chromium/WebKit; site checks also passed under `/send-tv/`. Three site unit/build checks and six Python guardrail checks passed. TypeScript, ESLint, Prettier, OpenAPI, Kotlin format, Android lint and APK assembly passed. Lint reports 0 errors and 13 warnings, without suppression.
+
+The API 34 emulator installed the bilingual APK and D-pad selection applied Russian; Home/settings screenshots were visually reviewed. Russian mobile landing and direct-visit sender screenshots were reviewed. Pencil MCP reopened all three original English reference documents. Physical household TV/phone were not connected for this increment; prior physical results are not re-attributed to the localized artifact. See [language behavior](localization.md).

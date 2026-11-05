@@ -1,5 +1,7 @@
 # V1 CI verification
 
+[Русский](ru/docs/ci-v1.md)
+
 The first hosted verification run failed because Android's setup action requested the retired `tools` SDK package. The workflow requests `platform-tools` explicitly instead.
 
 The next run rejected an npm lockfile containing temporary-directory package keys. A lockfile generated with a symlinked temporary prefix was not portable to the Linux runner. The keys were corrected to repository-relative `node_modules/` paths, and a clean `npm ci --ignore-scripts --no-audit --no-fund` installation with the exact committed manifest/lock was verified in a separate canonical temporary directory.

@@ -1,5 +1,7 @@
 # Protocol API contract
 
+[Русский](../docs/ru/architecture/api.md)
+
 V1 HTTP JSON; base path `/v1`. The `protocol/openapi.yaml` file is canonical for request/response shape.
 
 ## Resources

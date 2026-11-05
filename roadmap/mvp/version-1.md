@@ -1,5 +1,7 @@
 # MVP V1 — Pair and open a URL
 
+[Русский](../../docs/ru/roadmap/mvp/version-1.md)
+
 ## Objective
 From phone browser scan QR on Android TV, approve first device on television, paste URL, and reliably hand it off to installed TV browser.
 

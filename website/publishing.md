@@ -1,5 +1,7 @@
 # GitHub Pages publication checklist
 
+[Русский](../docs/ru/website/publishing.md)
+
 1. Determine GitHub `<owner>/<repo>` and Pages URL; configure Astro `site` and `base` accordingly.
 2. Create docs content and 404; run internal-link validator.
 3. CI: install, lint, typecheck, test, static build; deploy only from protected main.

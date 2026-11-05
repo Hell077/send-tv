@@ -1,5 +1,7 @@
 # Git, commits and branch policy
 
+[Русский](../docs/ru/governance/git.md)
+
 ## Commit format — Conventional Commits
 `<type>(<scope>)!: <imperative description>` where `!` only for breaking change.
 Types: `feat`, `fix`, `docs`, `design`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`. Scopes: `tv`, `web`, `cli`, `protocol`, `security`, `site`, `docs`, `design`, `repo`.

@@ -1,5 +1,7 @@
 # Pencil reference validation — 2026-11-04
 
+[Русский](../../docs/ru/design/validation/README.md)
+
 These are screenshots returned by the installed Pencil (`Pen.app`) MCP server. They show **design references**, not screenshots of a running SendTV app or website. No implementation fidelity or device compatibility is implied.
 
 ## Connection and schema

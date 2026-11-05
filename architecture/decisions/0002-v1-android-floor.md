@@ -1,5 +1,7 @@
 # ADR 0002 — Initial V1 Android floor
 
+[Русский](../../docs/ru/architecture/decisions/0002-v1-android-floor.md)
+
 Status: Accepted for the initial V1 compatibility scope.
 
 ## Decision

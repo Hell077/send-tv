@@ -1,5 +1,7 @@
 # V1 development
 
+[Русский](ru/docs/development-v1.md)
+
 Active roadmap: [MVP V1](../roadmap/mvp/version-1.md). The native receiver, security core, bounded HTTP adapter, and bundled sender are implemented for development verification. End-to-end physical-device acceptance remains open.
 
 ## Available behavior
@@ -10,6 +12,8 @@ Active roadmap: [MVP V1](../roadmap/mvp/version-1.md). The native receiver, secu
 - Settings starts focus on Back; pairing approval starts on Deny. Devices can be revoked individually or all at once. The UI follows the validated Pencil reference hierarchy; actual TV rendering remains under verification.
 - Private preferences store receiver identity, name, port, and token hashes. Only INTERNET and ACCESS_NETWORK_STATE permissions are requested. Backup and transfer exclusions follow [Android backup documentation](https://developer.android.com/identity/data/autobackup). No analytics, cloud relay or remote proxy exists.
 - The bundled TypeScript sender supports pairing, verification codes, cancel, open, status polling, malformed URL/missing-browser/revoked/unreachable errors, and retry idempotency. Browser credentials use session storage by default; remembering them in local storage is explicit.
+
+- English and Russian UI: TV Settings offers system language or an explicit override; the sender offers a selector initialized from browser preferences. User-entered names, URLs, verification codes and protocol identifiers are preserved.
 
 ## Lifecycle and platform constraints
 
@@ -85,3 +89,5 @@ Physical-TV inspection exposed repeated accessibility text changes on each one-s
 ## Static website
 
 Run `npm run check:site`, `npm run format:site`, `npm run build:site`, `npm run test:site` and `npm run test:site:browser`. `npm run dev:site` starts a loopback-only preview. The build derives project paths from `GITHUB_REPOSITORY`; an optional HTTPS `SITE_URL` sets the canonical deployment URL. No TV connection is required. See [publication](../website/publishing.md).
+
+Language behavior and translation checks: [English and Russian](localization.md).

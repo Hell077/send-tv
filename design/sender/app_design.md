@@ -1,5 +1,7 @@
 # Sender application design
 
+[Русский](../../docs/ru/design/sender/app_design.md)
+
 Sources: `app_design.pen` (mobile sender screen + pairing/feedback); shared design system in `../design-system.md`.
 
 ## V1 mobile sender
