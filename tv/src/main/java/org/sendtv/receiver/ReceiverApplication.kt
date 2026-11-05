@@ -40,6 +40,7 @@ class ReceiverApplication : Application() {
     @Volatile var networkMessageId: Int = R.string.receiver_stopped
         private set
     var visibleActivity: WeakReference<ReceiverActivity>? = null
+    val receiverName: String get() = prefs.getString("name", getString(R.string.default_receiver_name))!!
     val receiverPort: Int get() = prefs.getInt("port", 8765)
 
     override fun onCreate() {
@@ -117,7 +118,7 @@ class ReceiverApplication : Application() {
                 try {
                     val nextApi =
                         ReceiverApi(next, pairing, {
-                            prefs.getString("deviceId", "")!! to prefs.getString("name", getString(R.string.default_receiver_name))!!
+                            prefs.getString("deviceId", "")!! to receiverName
                         }, { asset -> assets.open("sender/$asset").use { it.readBytes() } }, { action -> main.post(action) }, ::launch)
                     server = LanServer(lan, selectedPort, nextApi::handle)
                     api = nextApi

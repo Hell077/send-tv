@@ -40,6 +40,23 @@ class ReceiverLanguageTest {
     }
 
     @Test
+    @Config(qualifiers = "en")
+    fun russianOverrideUsesSameReceiverNameAsApiIdentity() {
+        val app = RuntimeEnvironment.getApplication() as ReceiverApplication
+        app
+            .getSharedPreferences("receiver", Context.MODE_PRIVATE)
+            .edit()
+            .putString("language", "ru")
+            .commit()
+        Robolectric.buildActivity(ReceiverActivity::class.java).setup().use { controller ->
+            val activity = controller.get()
+            assertEquals("Настройки", activity.findViewById<Button>(R.id.settings).text)
+            assertEquals(app.receiverName, activity.findViewById<TextView>(R.id.receiver_name).text)
+            assertEquals("Living Room TV", app.receiverName)
+        }
+    }
+
+    @Test
     @Config(qualifiers = "fr")
     fun unsupportedSavedLanguageFallsBackWithoutChangingAccess() {
         val app = RuntimeEnvironment.getApplication()

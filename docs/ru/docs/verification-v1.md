@@ -27,6 +27,6 @@ HTTP раскрывает ссылки и данные доступа наблю
 
 ## Двуязычный инкремент, 2026-11-05
 
-43 JVM/resource/socket-теста на настроенной матрице API 30/34: русские ресурсы, английский override, неподдерживаемое предпочтение и D-pad. Все 16 sender browser и 12 site browser прошли в Chromium/WebKit; сайт также проверен с `/send-tv/`. Три site unit/build и шесть Python guardrails прошли. TS, ESLint, Prettier, OpenAPI, Kotlin format, Android lint и APK — успешно. Lint: 0 ошибок, 13 предупреждений без подавления.
+45 JVM/resource/socket-теста на настроенной матрице API 30/34: русские ресурсы, английский override, неподдерживаемое предпочтение и D-pad. Все 16 sender browser и 12 site browser прошли в Chromium/WebKit; сайт также проверен с `/send-tv/`. Три site unit/build и шесть Python guardrails прошли. TS, ESLint, Prettier, OpenAPI, Kotlin format, Android lint и APK — успешно. Lint: 0 ошибок, 13 предупреждений без подавления.
 
 Эмулятор API 34 установил двуязычный APK; русский выбран D-pad. Home/settings, русский мобильный лендинг и direct-visit отправитель просмотрены визуально. Pencil MCP повторно открыл три исходных английских эталона. Физические домашние ТВ/телефон не были подключены для этого инкремента; предыдущие результаты не приписываются новому артефакту. См. [локализацию](localization.md).

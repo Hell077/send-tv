@@ -6,7 +6,7 @@ The TV receiver, bundled sender and static documentation site support English an
 
 ## TV
 
-Settings → Language offers System language, English and Русский. The selection is private local app state; it does not change the TV's system language or grant access. Unsupported stored values fall back to the system configuration, whose unsupported languages use English resources. Recreating the Activity applies the selection and returns to Home; unsaved name/port edits are not committed by language selection. Pairing approval still defaults to Deny. User-saved device names are preserved.
+Settings → Language offers System language, English and Русский. The selection is private local app state; it does not change the TV's system language or grant access. Unsupported stored values fall back to the system configuration, whose unsupported languages use English resources. Recreating the Activity applies the selection and returns to Home; unsaved name/port edits are not committed by language selection. Pairing approval still defaults to Deny. User-saved device names are preserved. The default receiver name is resolved in the application system locale, so the TV and `/v1/info` expose the same name even when the Activity has an explicit language override.
 
 Network status uses Android string resources rather than stored English sentences so the selected Activity locale also applies to asynchronous network updates. Strings and format arguments are checked for English/Russian coverage.
 

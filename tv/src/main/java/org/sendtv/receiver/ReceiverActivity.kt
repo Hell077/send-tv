@@ -101,7 +101,7 @@ class ReceiverActivity : Activity() {
 
     private fun updateHome() {
         if (!home) return
-        label(R.id.receiver_name, prefs.getString("name", getString(R.string.default_receiver_name))!!)
+        label(R.id.receiver_name, receiver.receiverName)
         label(R.id.network_state, getString(receiver.networkMessageId))
         val address = receiver.address.takeIf { receiver.isEnabled() }
         label(R.id.toggle_server, getString(if (receiver.isEnabled()) R.string.stop_receiver else R.string.start_receiver))
@@ -214,7 +214,7 @@ class ReceiverActivity : Activity() {
         }
         val name = findViewById<EditText>(R.id.name_input)
         val port = findViewById<EditText>(R.id.port_input)
-        name.setText(prefs.getString("name", getString(R.string.default_receiver_name)))
+        name.setText(receiver.receiverName)
         port.setText(receiver.receiverPort.toString())
         findViewById<Button>(R.id.save_name).setOnClickListener {
             val proposed = name.text.toString()
